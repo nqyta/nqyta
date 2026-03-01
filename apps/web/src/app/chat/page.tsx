@@ -1,22 +1,26 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@wokspec/auth/client';
 import { ChatInterface } from '@/components/ChatInterface';
 import { Sidebar } from '@/components/Sidebar';
 
 export default function ChatPage() {
-  const { isAuthenticated, isLoading, user, signIn } = useAuth();
   const router = useRouter();
+  const [ready, setReady] = useState(false);
+  const [apiKey, setApiKey] = useState('');
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    const key = localStorage.getItem('eral_api_key') ?? '';
+    if (!key) {
       router.replace('/login');
+    } else {
+      setApiKey(key);
+      setReady(true);
     }
-  }, [isLoading, isAuthenticated, router]);
+  }, [router]);
 
-  if (isLoading) {
+  if (!ready) {
     return (
       <div
         style={{
@@ -32,40 +36,6 @@ export default function ChatPage() {
     );
   }
 
-  if (!isAuthenticated) {
-    return (
-      <div
-        style={{
-          minHeight: '100vh',
-          background: 'var(--background)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '1.5rem',
-          color: 'var(--foreground)',
-        }}
-      >
-        <p style={{ color: 'var(--muted)' }}>Sign in to start chatting with Eral.</p>
-        <button
-          onClick={() => signIn('github', '/chat')}
-          style={{
-            background: 'var(--accent)',
-            color: '#fff',
-            border: 'none',
-            padding: '0.75rem 1.75rem',
-            borderRadius: '0.75rem',
-            fontWeight: 600,
-            fontSize: '0.9375rem',
-            cursor: 'pointer',
-          }}
-        >
-          Sign in with WokSpec
-        </button>
-      </div>
-    );
-  }
-
   return (
     <div
       style={{
@@ -76,7 +46,10 @@ export default function ChatPage() {
         overflow: 'hidden',
       }}
     >
-      <Sidebar user={user} />
+      <Sidebar apiKey={apiKey} onSignOut={() => {
+        localStorage.removeItem('eral_api_key');
+        router.replace('/login');
+      }} />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         {/* Header */}
         <header
@@ -111,7 +84,7 @@ export default function ChatPage() {
               fontWeight: 500,
             }}
           >
-            Llama 3.1 · Powered by Eral
+            Powered by Eral
           </span>
         </header>
         <ChatInterface />

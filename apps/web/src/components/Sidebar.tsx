@@ -1,17 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { AuthUser } from '@wokspec/auth';
 
 interface Props {
-  user: AuthUser | null;
+  apiKey: string;
+  onSignOut: () => void;
 }
 
-export function Sidebar({ user }: Props) {
+export function Sidebar({ apiKey, onSignOut }: Props) {
   const [sessions, setSessions] = useState<string[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | undefined>(undefined);
   const [hoveredSession, setHoveredSession] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false); // mobile toggle
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const onSessionsUpdate = (e: Event) => {
@@ -41,10 +41,11 @@ export function Sidebar({ user }: Props) {
   };
 
   const formatSession = (id: string, idx: number) => {
-    // Try to show a friendly name; fall back to "Chat N"
     if (id.length > 16) return `Chat ${idx + 1}`;
     return id;
   };
+
+  const truncatedKey = apiKey ? `${apiKey.slice(0, 8)}…` : '';
 
   const sidebarContent = (
     <div
@@ -143,60 +144,48 @@ export function Sidebar({ user }: Props) {
         ))}
       </div>
 
-      {/* User info */}
-      {user && (
-        <div
+      {/* Key info + sign out */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '0.5rem',
+          padding: '0.625rem 0.5rem',
+          borderTop: '1px solid var(--border)',
+          marginTop: '0.5rem',
+        }}
+      >
+        <span
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.625rem',
-            padding: '0.625rem 0.5rem',
-            borderTop: '1px solid var(--border)',
-            marginTop: '0.5rem',
+            fontSize: '0.75rem',
+            color: 'var(--muted)',
+            fontFamily: 'ui-monospace, Menlo, monospace',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
           }}
         >
-          {user.avatarUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={user.avatarUrl}
-              alt={user.displayName ?? user.email}
-              width={28}
-              height={28}
-              style={{ borderRadius: '50%', flexShrink: 0 }}
-            />
-          ) : (
-            <div
-              style={{
-                width: '1.75rem',
-                height: '1.75rem',
-                borderRadius: '50%',
-                background: 'var(--accent)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 700,
-                fontSize: '0.75rem',
-                color: '#fff',
-                flexShrink: 0,
-              }}
-            >
-              {(user.displayName ?? user.email ?? '?')[0]?.toUpperCase()}
-            </div>
-          )}
-          <span
-            style={{
-              fontSize: '0.8125rem',
-              fontWeight: 500,
-              color: 'var(--foreground)',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {user.displayName ?? user.email}
-          </span>
-        </div>
-      )}
+          {truncatedKey}
+        </span>
+        <button
+          onClick={onSignOut}
+          style={{
+            flexShrink: 0,
+            background: 'transparent',
+            border: '1px solid var(--border)',
+            borderRadius: '0.375rem',
+            color: 'var(--muted)',
+            fontSize: '0.75rem',
+            padding: '0.25rem 0.5rem',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--foreground)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--muted)'; }}
+        >
+          Sign out
+        </button>
+      </div>
     </div>
   );
 
@@ -244,20 +233,9 @@ export function Sidebar({ user }: Props) {
 
       {/* Mobile drawer */}
       {isOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 40,
-            display: 'flex',
-          }}
-        >
+        <div style={{ position: 'fixed', inset: 0, zIndex: 40, display: 'flex' }}>
           <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'rgba(0,0,0,0.6)',
-            }}
+            style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)' }}
             onClick={() => setIsOpen(false)}
           />
           <aside

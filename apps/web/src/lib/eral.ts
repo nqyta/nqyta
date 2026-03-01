@@ -24,27 +24,22 @@ export interface SessionResponse {
   error: null | string;
 }
 
-export interface GenerateParams {
-  type: 'post' | 'caption' | 'code' | 'prompt' | 'docs' | 'email' | 'summary';
-  topic: string;
-  tone?: string;
-  length?: string;
+function getApiKey(): string {
+  if (typeof window === 'undefined') return '';
+  return localStorage.getItem('eral_api_key') ?? '';
 }
 
-export interface AnalyzeParams {
-  type: 'summarize' | 'explain' | 'review' | 'extract' | 'sentiment';
-  content: string;
-}
-
-function headers(): HeadersInit {
-  return { 'Content-Type': 'application/json' };
+function buildHeaders(): HeadersInit {
+  const key = getApiKey();
+  const h: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (key) h['Authorization'] = `Bearer ${key}`;
+  return h;
 }
 
 function fetchOptions(method: string, body?: unknown): RequestInit {
   return {
     method,
-    credentials: 'include',
-    headers: headers(),
+    headers: buildHeaders(),
     ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
   };
 }
@@ -52,9 +47,8 @@ function fetchOptions(method: string, body?: unknown): RequestInit {
 export async function sendChat(
   message: string,
   sessionId?: string,
-  product?: string,
 ): Promise<ChatResponse> {
-  const res = await fetch(`${ERAL_API}/v1/chat`, fetchOptions('POST', { message, sessionId, product }));
+  const res = await fetch(`${ERAL_API}/v1/chat`, fetchOptions('POST', { message, sessionId }));
   if (!res.ok) {
     const text = await res.text().catch(() => res.statusText);
     throw new Error(text || `HTTP ${res.status}`);
@@ -79,14 +73,14 @@ export async function deleteSession(sessionId: string): Promise<void> {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }
 
-export async function generate(params: GenerateParams): Promise<{ data: { result: string }; error: null | string }> {
-  const res = await fetch(`${ERAL_API}/v1/generate`, fetchOptions('POST', params));
+export async function createApiKey(): Promise<{ data: { key: string; id: string }; error: null | string }> {
+  const res = await fetch(`${ERAL_API}/v1/keys`, fetchOptions('POST', {}));
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
 
-export async function analyze(params: AnalyzeParams): Promise<{ data: { result: string }; error: null | string }> {
-  const res = await fetch(`${ERAL_API}/v1/analyze`, fetchOptions('POST', params));
+export async function listApiKeys(): Promise<{ data: { keys: { id: string; createdAt: string }[] }; error: null | string }> {
+  const res = await fetch(`${ERAL_API}/v1/keys`, fetchOptions('GET'));
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }

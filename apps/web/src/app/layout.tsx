@@ -1,17 +1,9 @@
 import type { Metadata, Viewport } from 'next';
-import { Space_Grotesk, DM_Sans } from 'next/font/google';
-import { AuthProvider } from '@wokspec/auth/client';
+import { Inter } from 'next/font/google';
 import './globals.css';
 
-const spaceGrotesk = Space_Grotesk({
-  variable: '--font-heading',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-});
-
-const dmSans = DM_Sans({
-  variable: '--font-body',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
 });
@@ -41,9 +33,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" style={{ background: '#0d0d0d' }}>
-      <body className={`${spaceGrotesk.variable} ${dmSans.variable}`}>
-        <AuthProvider>{children}</AuthProvider>
-      </body>
+      <body className={inter.variable}>{children}</body>
     </html>
   );
 }

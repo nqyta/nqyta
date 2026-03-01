@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "build:cf": "next build && opennextjs-cloudflare build --skipNextBuild && cp .open-next/worker.js .open-next/assets/_worker.js && cp -r .open-next/cloudflare .open-next/assets/ && cp -r .open-next/server-functions .open-next/assets/ && cp -r .open-next/middleware .open-next/assets/ && cp -r .open-next/.build .open-next/assets/ && node -e \"const r={version:1,include:['/*'],exclude:['/_next/static/*','/_next/image*','/favicon.ico']};require('fs').writeFileSync('.open-next/assets/_routes.json',JSON.stringify(r))\"",
     "deploy": "npm run build:cf && wrangler pages deploy .open-next/assets --project-name eral --branch main",
@@ -11,9 +11,6 @@
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.16.5",
-    "@wokspec/auth": "*",
-    "@wokspec/config": "*",
-    "@wokspec/ui": "*",
     "next": "^15.3.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
@@ -25,6 +22,6 @@
     "tailwindcss": "^4.1.0",
     "@tailwindcss/postcss": "^4.1.0",
     "typescript": "^5.8.2",
-    "wrangler": "^3.109.2"
+    "wrangler": "^4"
   }
 }
