@@ -20,9 +20,12 @@ export default function HomePage() {
           <div style={{ width: '2rem', height: '2rem', background: 'var(--accent)', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '1rem', color: '#fff' }}>E</div>
           <span style={{ fontWeight: 700, fontSize: '1.0625rem', letterSpacing: '-0.01em' }}>Eral</span>
         </div>
-        <a href="/login" style={{ background: 'var(--accent)', color: '#fff', border: 'none', padding: '0.5rem 1.25rem', borderRadius: '0.625rem', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none', cursor: 'pointer' }}>
-          Sign in
-        </a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <a href="/docs" style={{ color: 'var(--muted)', fontSize: '0.875rem', textDecoration: 'none' }}>Docs</a>
+          <a href="/login" style={{ background: 'var(--accent)', color: '#fff', border: 'none', padding: '0.5rem 1.25rem', borderRadius: '0.625rem', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none', cursor: 'pointer' }}>
+            Sign in
+          </a>
+        </div>
       </nav>
 
       {/* Hero */}

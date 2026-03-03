@@ -9,3 +9,9 @@ apps/web/out/
 .dev.vars
 .wrangler/
 .cache/
+# Extension build artifacts
+apps/extension/node_modules/
+apps/extension/build/
+apps/extension/.plasmo/
+apps/extension/*.tsbuildinfo
+apps/extension/package-lock.json
