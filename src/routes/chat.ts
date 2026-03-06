@@ -23,6 +23,7 @@ chat.post(
   zValidator('json', z.object({
     message:    z.string().min(1).max(4000),
     sessionId:  z.string().max(128).default('default'),
+    quality:    z.enum(['fast', 'balanced', 'best']).optional(),
     product:    ProductSchema,
     integration: IntegrationSchema,
     pageContext: z.string().max(12000).optional(),
@@ -30,7 +31,7 @@ chat.post(
   })),
   async (c) => {
     const user = c.get('user');
-    const { message, sessionId, product, integration, pageContext, history } = c.req.valid('json');
+    const { message, sessionId, quality, product, integration, pageContext, history } = c.req.valid('json');
 
     // Build context extras
     const userContext = buildContext({ user, product, integration, pageContext });
@@ -50,6 +51,7 @@ chat.post(
       ...pastMessages,
       { role: 'user' as const, content: message },
     ];
+    const resolvedQuality = quality ?? (messages.length > 8 ? 'best' : 'balanced');
 
     try {
       const result = await run(
@@ -57,7 +59,7 @@ chat.post(
           messages,
           maxTokens: 1024,
           route: 'chat',
-          quality: history && history.length > 6 ? 'best' : 'balanced',
+          quality: resolvedQuality,
         },
         {
           openaiApiKey: c.env.OPENAI_API_KEY,

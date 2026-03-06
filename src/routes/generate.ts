@@ -31,6 +31,7 @@ const GenerateSchema = z.object({
   context: z.string().max(8000).optional().describe('Additional context or existing content'),
   tone: z.enum(['professional', 'casual', 'technical', 'playful']).default('casual'),
   length: z.enum(['short', 'medium', 'long']).default('medium'),
+  quality: z.enum(['fast', 'balanced', 'best']).optional(),
   product: ProductSchema,
   integration: IntegrationSchema,
 }).superRefine((value, ctx) => {
@@ -51,9 +52,10 @@ generate.post(
   zValidator('json', GenerateSchema),
   async (c) => {
     const user = c.get('user');
-    const { type, topic, content, prompt, context, tone, length, product, integration } = c.req.valid('json');
+    const { type, topic, content, prompt, context, tone, length, quality, product, integration } = c.req.valid('json');
     const sourceMaterial = [topic, prompt, content].find((value) => Boolean(value?.trim())) ?? '';
     const transformMode = ['rewrite', 'expand', 'shorten', 'improve'].includes(type);
+    const resolvedQuality = quality ?? (length === 'long' || transformMode ? 'best' : 'balanced');
 
     const lengthGuidance: Record<string, string> = {
       short:  'Keep it brief — under 100 words.',
@@ -104,7 +106,7 @@ generate.post(
           maxTokens: length === 'long' ? 2048 : length === 'medium' ? 1024 : 512,
           temperature: tone === 'playful' ? 0.9 : 0.7,
           route: 'generate',
-          quality: length === 'long' || transformMode ? 'best' : 'balanced',
+          quality: resolvedQuality,
         },
         {
           openaiApiKey: c.env.OPENAI_API_KEY,

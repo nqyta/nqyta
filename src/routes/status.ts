@@ -64,6 +64,7 @@ status.get('/', async (c) => {
         browser_extension: true,
         generic_integration_context: true,
         text_transformations: true,
+        quality_controls: true,
       },
       ai: {
         provider: preferredProvider,

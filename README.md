@@ -53,6 +53,9 @@ where it is running and what the user is doing.
 }
 ```
 
+Main generation endpoints also accept optional `quality: "fast" | "balanced" | "best"` so callers
+can trade off latency versus output quality while still respecting Eral's spend policy.
+
 ### AI providers
 
 | Provider | Used for |
@@ -100,6 +103,7 @@ Drop the Eral widget into any WokSpec product (or external site):
   data-eral-key="eral_..."
   data-eral-name="Eral"
   data-eral-product="support-portal"
+  data-eral-quality="best"
   data-eral-page-context="true"
 ></script>
 ```
