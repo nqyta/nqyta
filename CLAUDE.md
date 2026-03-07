@@ -22,6 +22,19 @@ product.
 - **Browser extension** — provides an AI overlay, composition assist, and video analysis in
   Chrome, Firefox, and Edge via the Plasmo-based extension in `apps/extension/`.
 
+---
+
+## High-Fidelity UI Standards (Anti-Vibe-Coded)
+
+The Eral Web App, Extension UI, and Widget must follow the WokSpec High-Fidelity UI Standards defined in [../UI_STANDARDS.md](../UI_STANDARDS.md).
+
+- **8pt Spacing:** Use strict 4/8pt increments for all layout gaps and paddings in the chat UI and extension overlays.
+- **Loading States:** Every AI interaction must show a distinct loading state (e.g., typing indicator, skeleton screen for analysis).
+- **Consistency:** Maintain uniform border-radii across the widget bubble, extension popup, and web app cards.
+- **Anti-Vibe:** Avoid random purple gradients and sparkle emoji overkill in prompt templates and UI accents.
+
+---
+
 ### Monorepo Structure
 
 ```
