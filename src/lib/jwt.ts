@@ -3,8 +3,8 @@ import type { EralUser } from '../types';
 
 interface WokSpecPayload extends JWTPayload {
   email: string;
-  displayName: string;
-  avatarUrl: string | null;
+  display_name: string;
+  avatar_url: string | null;
 }
 
 /** Verify a WokSpec JWT (shared secret with WokAPI). */
@@ -19,8 +19,8 @@ export async function verifyToken(token: string, secret: string): Promise<EralUs
     return {
       id: payload.sub,
       email: payload.email,
-      displayName: payload.displayName,
-      avatarUrl: payload.avatarUrl,
+      displayName: payload.display_name,
+      avatarUrl: payload.avatar_url,
     };
   } catch {
     return null;
