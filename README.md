@@ -160,3 +160,7 @@ Read [CONTRIBUTING.md](./CONTRIBUTING.md) for the full guide.
 ## License
 
 MIT — see [LICENSE](./LICENSE).
+
+---
+
+[![Twitter](https://img.shields.io/twitter/follow/nqitabot?style=flat-square&logo=x&label=%40nqitabot)](https://x.com/nqitabot)
