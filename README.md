@@ -13,6 +13,26 @@ When the system isn't running: *Nqita is stuck in the void.* That's not a bug. T
 
 ---
 
+## Authentication
+
+NQITA accepts three forms of authentication via `Authorization: Bearer <token>`:
+
+| Token format | Source | Notes |
+|---|---|---|
+| `eral_*` | NQITA API keys | Manage at nqita.wokspec.org/keys |
+| `wok_live_*` | WokSpec platform tokens | Manage at dashboard.wokspec.org/tokens |
+| `wok_test_*` | WokSpec test tokens | For development only |
+| JWT | WokSpec OAuth session | Issued after GitHub/Google login |
+
+### WokSpec Platform Tokens (Quickstart)
+
+1. Log in at [wokspec.org](https://wokspec.org)
+2. Go to [dashboard.wokspec.org/tokens](https://dashboard.wokspec.org/tokens)
+3. Create a token with the `ai` scope
+4. Use it in any request: `Authorization: Bearer wok_live_<your-token>`
+
+---
+
 ## What she is
 
 Nqita is an ambient desktop companion — a pixel art sprite with an apron who lives as an OS-level overlay. She has moods, modes, and opinions. She notices when you open YouTube. She sometimes wanders across your desktop for no reason. In Research mode, she sits at a tiny pixel desk, opens her own mini browser, and starts typing.

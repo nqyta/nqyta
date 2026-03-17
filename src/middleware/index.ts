@@ -1,7 +1,8 @@
 import type { MiddlewareHandler, Context } from 'hono';
-import type { Env, EralUser, EralAuth, ApiKeyScope } from '../types';
+import type { Env, EralUser, EralAuth, ApiKeyRecord, ApiKeyScope } from '../types';
 import { verifyToken } from '../lib/jwt';
 import { verifyApiKey } from '../lib/api-keys';
+import { verifyWokToken, mapWokScopes } from '../lib/wok-auth';
 import { checkRateLimit } from '../lib/rate-limit';
 
 export const securityHeaders = (): MiddlewareHandler<{ Bindings: Env }> => {
@@ -64,6 +65,31 @@ async function resolveAuth(c: Context<{ Bindings: Env; Variables: any }>): Promi
     if (record) {
       const user: EralUser = { id: record.ownerId, email: '', displayName: `API Key: ${record.name}`, avatarUrl: null };
       return { user, apiKey: record, method: 'apikey' };
+    }
+    return { user: null, apiKey: null, method: 'none' };
+  }
+
+  // WokSpec platform token (wok_live_ / wok_test_)
+  if (token.startsWith('wok_live_') || token.startsWith('wok_test_')) {
+    const result = await verifyWokToken(token, c.env.WOK_INTERNAL_SECRET);
+    if (result) {
+      const plan = result.plan === 'pro' ? 'premium' : result.plan;
+      const user: EralUser = {
+        id: result.user_id,
+        email: '',
+        displayName: `WokSpec Token (${result.key_id.slice(0, 8)}…)`,
+        avatarUrl: null,
+        plan,
+      };
+      const apiKey: ApiKeyRecord = {
+        id: result.key_id,
+        name: `WokSpec ${result.environment} key`,
+        ownerId: result.user_id,
+        scopes: mapWokScopes(result.scopes),
+        createdAt: new Date().toISOString(),
+        lastUsedAt: null,
+      };
+      return { user, apiKey, method: 'apikey' };
     }
     return { user: null, apiKey: null, method: 'none' };
   }

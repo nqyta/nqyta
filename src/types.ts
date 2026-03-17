@@ -35,6 +35,7 @@ export interface Env {
   CF_AI_FALLBACK_MODEL: string | undefined;
 
   ENVIRONMENT: string;
+  WOK_INTERNAL_SECRET?: string;
 }
 
 // ── Auth ─────────────────────────────────────────────────────────────────────
