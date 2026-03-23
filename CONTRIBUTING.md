@@ -64,12 +64,15 @@ The Agent Runtime, Curiosity System, mode state machine, and LLM interface are t
 
 ### Architecture overview
 
-Nqita runs in three layers:
-1. **Sprite Layer** — OS overlay, animation rendering
-2. **Interaction Layer** — Bubble, Mini Browser, Full View
-3. **Curiosity System + Agent Runtime** — signal monitoring, probability model, LLM calls
+Read [NQITA_V1_INDEX.md](./docs/NQITA_V1_INDEX.md) first.
 
-The Sprite Layer and Agent Runtime are separate processes communicating over a local socket. See [ARCHITECTURE.md](./docs/ARCHITECTURE.md) for the full system diagram and [AGENT_RUNTIME.md](./docs/AGENT_RUNTIME.md) for the runtime internals.
+Nqita's canonical v1 architecture centers on:
+1. **Architecture contract** — process boundaries, replacement points, identity continuity
+2. **State engine** — canonical runtime truth, scene selection, animation mapping
+3. **Windows daemon loop** — observe, decide, act, reflect
+4. **Embodiment pipeline** — overlay IPC, layered rendering, click-through behavior
+
+The overlay and daemon are separate processes connected by IPC. See [ARCHITECTURE_V1.md](./docs/ARCHITECTURE_V1.md) for the system contract, [STATE_ENGINE.md](./docs/STATE_ENGINE.md) for the runtime bridge, and [DAEMON_LOOP_WINDOWS.md](./docs/DAEMON_LOOP_WINDOWS.md) for the runtime lifecycle.
 
 ### Dev setup
 
@@ -89,11 +92,17 @@ npm test
 
 | System | Docs |
 |--------|------|
-| Agent Runtime process model | [AGENT_RUNTIME.md](./docs/AGENT_RUNTIME.md) |
+| Canonical architecture | [ARCHITECTURE_V1.md](./docs/ARCHITECTURE_V1.md) |
+| Canonical state / scene / animation mapping | [STATE_ENGINE.md](./docs/STATE_ENGINE.md) |
+| Windows daemon lifecycle | [DAEMON_LOOP_WINDOWS.md](./docs/DAEMON_LOOP_WINDOWS.md) |
+| Local memory schema | [MEMORY_SCHEMA.md](./docs/MEMORY_SCHEMA.md) |
+| Model routing | [MODEL_ROUTER.md](./docs/MODEL_ROUTER.md) |
+| Overlay IPC and rendering contract | [EMBODIMENT_PIPELINE.md](./docs/EMBODIMENT_PIPELINE.md) |
+| Tool authority and permission model | [TOOLS_AND_PERMS.md](./docs/TOOLS_AND_PERMS.md) |
 | Curiosity engine (probability + cooldowns) | [CURIOSITY_SYSTEM.md](./docs/CURIOSITY_SYSTEM.md) |
 | Mode state machine | [MODES.md](./docs/MODES.md) |
-| Sprite/Agent IPC | [ARCHITECTURE.md](./docs/ARCHITECTURE.md#ipc-between-layers) |
-| Memory (KV store) | [AGENT_RUNTIME.md](./docs/AGENT_RUNTIME.md#memory-management) |
+| Sprite spec and asset pipeline | [SPRITE_SYSTEM.md](./docs/SPRITE_SYSTEM.md) |
+| Legacy runtime context | [AGENT_RUNTIME.md](./docs/AGENT_RUNTIME.md) |
 
 ### Good first issues
 
@@ -127,7 +136,7 @@ The overlay system is the most platform-specific part of Nqita. Each OS has its 
 
 **Linux Wayland:** Compositor support for overlays varies widely. `wlr-layer-shell` works on wlroots-based compositors (Sway, Hyprland). GNOME Shell requires a different approach. Ongoing research.
 
-See [ARCHITECTURE.md](./docs/ARCHITECTURE.md#layer-1--sprite-layer) for platform API details and [SPRITE_SYSTEM.md](./docs/SPRITE_SYSTEM.md#os-overlay-implementation) for overlay implementation code snippets.
+See [ARCHITECTURE_V1.md](./docs/ARCHITECTURE_V1.md) for process and trust boundaries, [DAEMON_LOOP_WINDOWS.md](./docs/DAEMON_LOOP_WINDOWS.md) for Windows runtime assumptions, [EMBODIMENT_PIPELINE.md](./docs/EMBODIMENT_PIPELINE.md) for overlay contracts, and [SPRITE_SYSTEM.md](./docs/SPRITE_SYSTEM.md#os-overlay-implementation) for implementation examples.
 
 ### How to help
 
@@ -159,9 +168,9 @@ When generating bubble text, the goal is responses that feel natural for someone
 
 ### How memory works
 
-Conversation memory is stored in KV at `mem:<userId>:<sessionId>`. Up to 40 messages are retained per session, with a 7-day TTL. The memory is injected into the system prompt for context.
+v1 memory is local-first. Persistent state is defined in SQLite, with memory classes split into episodic, semantic, identity, and operational records. Retrieval and retention are governed by the canonical memory schema.
 
-See [AGENT_RUNTIME.md](./docs/AGENT_RUNTIME.md#memory-management) for implementation details.
+See [MEMORY_SCHEMA.md](./docs/MEMORY_SCHEMA.md) for the normative storage contract and [MODEL_ROUTER.md](./docs/MODEL_ROUTER.md) for how memory is injected into routed model calls.
 
 ### How responses are generated
 

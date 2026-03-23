@@ -1,15 +1,17 @@
-# NQITA
+# Nqyta
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-pink.svg)](./LICENSE)
 [![Status: Active Development](https://img.shields.io/badge/status-active%20development-blueviolet.svg)](https://github.com/nqita)
 
-**Nqita lives on your computer.**
+**Nqyta lives on your computer.**
 
 She's not an app window. She's not a chatbot in a tab. She's a pink pixel sprite who sits on your desktop, watches what you're doing, and reacts — occasionally, quietly, on her own terms.
 
-When the system isn't running: *Nqita is stuck in the void.* That's not a bug. That's the lore.
+When the system isn't running: *Nqyta is stuck in the void.* That's not a bug. That's the lore.
 
-> 🌐 [nqita.wokspec.org](https://nqita.wokspec.org) · 💬 [Discord](https://discord.gg/juunCaGpTW) · 🐙 [GitHub](https://github.com/nqita)
+> 💬 [Discord](https://discord.gg/juunCaGpTW) · 🐙 [GitHub](https://github.com/nqita)
+>
+> **Note:** The Nqyta web presence is currently offline and being rebuilt.
 
 ---
 
@@ -167,13 +169,23 @@ Read [CONTRIBUTING.md](./CONTRIBUTING.md) for the full guide.
 
 | Doc | What it covers |
 |-----|---------------|
-| [ARCHITECTURE.md](./docs/ARCHITECTURE.md) | Deep technical: all three layers, IPC, data stores |
+| [NQITA_V1_INDEX.md](./docs/NQITA_V1_INDEX.md) | Start here: canonical read order, subsystem ownership, assumptions, success criteria |
+| [ARCHITECTURE_V1.md](./docs/ARCHITECTURE_V1.md) | Canonical v1 architecture, process boundaries, identity continuity |
+| [STATE_ENGINE.md](./docs/STATE_ENGINE.md) | Canonical runtime state, scene selection, animation mapping |
+| [DAEMON_LOOP_WINDOWS.md](./docs/DAEMON_LOOP_WINDOWS.md) | Windows daemon lifecycle, observation loop, watchdog behavior |
+| [MEMORY_SCHEMA.md](./docs/MEMORY_SCHEMA.md) | Local SQLite memory model, retrieval classes, retention rules |
+| [MODEL_ROUTER.md](./docs/MODEL_ROUTER.md) | Claude/GPT routing, adapter contract, validation, fallback |
+| [EMBODIMENT_PIPELINE.md](./docs/EMBODIMENT_PIPELINE.md) | Overlay IPC, layered rendering, desk/device scene contract |
+| [TOOLS_AND_PERMS.md](./docs/TOOLS_AND_PERMS.md) | Scoped tool authority, confirmation tiers, audit rules |
+| [ROADMAP.md](./docs/ROADMAP.md) | Future phases that do not override v1 contracts |
 | [SPRITE_SYSTEM.md](./docs/SPRITE_SYSTEM.md) | Sprite spec, animation list, rendering pipeline |
 | [AGENT_RUNTIME.md](./docs/AGENT_RUNTIME.md) | Process model, event loop, browser detection, crash recovery |
 | [MODES.md](./docs/MODES.md) | Full mode specification and state machine |
 | [CURIOSITY_SYSTEM.md](./docs/CURIOSITY_SYSTEM.md) | Signal sources, probability model, cooldowns |
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | How to contribute, per contributor type |
 | [PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md) | Ecosystem role and boundary rules |
+
+`ARCHITECTURE.md` and `architecture.md` are legacy pointers. Use `NQITA_V1_INDEX.md` and `ARCHITECTURE_V1.md` as the canonical entrypoints.
 
 ---
 

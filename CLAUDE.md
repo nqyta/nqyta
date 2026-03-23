@@ -1,7 +1,47 @@
+## Tool Usage
+- Only call MCP tools when explicitly required for the current task
+- Do not probe, verify, or check state unless asked
+- Do not call GitHub, Cloudflare, filesystem, or any MCP tool as a check before acting unless the task requires it
+- Prefer bash over MCP tools when bash can do the job
+
+## Session Hygiene
+- Use /compact proactively in long sessions
+- Do not re-read files already in context
+
+## General
+- Be direct and minimal
+- No unnecessary confirmation messages
+- Execute, then report — don't narrate while doing
+
+## GitHub
+- Primary account: ws-sam
+- Always commit and push as ws-sam
+- Do not assume Claude is the sole contributor
+- Preserve ws-sam's commit history — do not squash or overwrite existing commits
+- Default branch: main
+
+## Stack
+- Desktop AI companion, OS-level sprite overlay
+- Pixel art assets in `/public/images/nqita/`
+- PixelLab API for sprite generation
+
+---
+
 # CLAUDE.md — Nikita Agent Guide
 
 > This file is the authoritative reference for AI coding agents (Claude, Copilot, etc.) working in
 > the Nikita repository. Read it before writing any code.
+
+---
+
+## Web3 Integration Context
+
+Nikita operates within a Web3-first WokSpec ecosystem. The following applies to all Nikita development:
+
+- **Product context injection** must include Web3 product contexts: Orinadus (DeFi/blockchain research), and any future on-chain products
+- **Extension** should support Web3 workflows: summarizing smart contract docs, explaining transaction data, analyzing governance proposals pasted from Snapshot/Tally
+- **Chat** should be fluent in Web3 terminology when `product` context indicates a Web3 surface
+- Never surface wallet private keys, seed phrases, or signing prompts via Nikita — any Web3 action must be handled client-side by the dApp, never proxied through Nikita
 
 ---
 
