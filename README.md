@@ -1,27 +1,27 @@
-# Nqyta
+# Nqita
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-pink.svg)](./LICENSE)
-[![Status: Active Development](https://img.shields.io/badge/status-active%20development-blueviolet.svg)](https://github.com/nqita)
+[![Status: Active Development](https://img.shields.io/badge/status-active%20development-blueviolet.svg)](https://github.com/nqyta)
 
-**Nqyta lives on your computer.**
+**Nqita lives on your computer.**
 
 She's not an app window. She's not a chatbot in a tab. She's a pink pixel sprite who sits on your desktop, watches what you're doing, and reacts — occasionally, quietly, on her own terms.
 
-When the system isn't running: *Nqyta is stuck in the void.* That's not a bug. That's the lore.
+When the system isn't running: *Nqita is stuck in the void.* That's not a bug. That's the lore.
 
-> 💬 [Discord](https://discord.gg/juunCaGpTW) · 🐙 [GitHub](https://github.com/nqita)
+> 💬 [Discord](https://discord.gg/juunCaGpTW) · 🐙 [GitHub](https://github.com/nqyta)
 >
-> **Note:** The Nqyta web presence is currently offline and being rebuilt.
+> **Note:** The Nqita web presence is currently offline and being rebuilt.
 
 ---
 
 ## Authentication
 
-NQITA accepts three forms of authentication via `Authorization: Bearer <token>`:
+Nqita accepts three forms of authentication via `Authorization: Bearer <token>`:
 
 | Token format | Source | Notes |
 |---|---|---|
-| `eral_*` | NQITA API keys | Manage at nqita.wokspec.org/keys |
+| `eral_*` | Nqita API keys | Manage at nqita.wokspec.org/keys |
 | `wok_live_*` | WokSpec platform tokens | Manage at dashboard.wokspec.org/tokens |
 | `wok_test_*` | WokSpec test tokens | For development only |
 | JWT | WokSpec OAuth session | Issued after GitHub/Google login |
@@ -122,7 +122,7 @@ You can always see what she's doing. **Full View Mode** exposes her terminal, ag
 > 🚧 **Nqita is in active development and not yet installable.**
 >
 > The API platform and browser extension are live. The desktop sprite layer is under construction.
-> Watch [github.com/nqita](https://github.com/nqita) for release announcements.
+> Watch [github.com/nqyta](https://github.com/nqyta) for release announcements.
 
 Platform API (Cloudflare Worker):
 
