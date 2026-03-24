@@ -5,7 +5,7 @@ import { requireAuth } from '../middleware';
 const tools = new Hono<{ Bindings: Env; Variables: { user: EralUser } }>();
 tools.use('*', requireAuth('*'));
 
-// GET /v1/tools — List available tools for Nikita agents
+// GET /v1/tools — List available tools for Nqita agents
 tools.get('/', async (c) => {
   return c.json({
     data: {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { MessageBubble, TypingIndicator, type Message } from './MessageBubble';
 import { ChatInput } from './ChatInput';
-import { sendChat, getSessions, getSession, deleteSession } from '@/lib/nikita';
+import { sendChat, getSessions, getSession, deleteSession } from '@/lib/eral';
 
 let msgCounter = 0;
 function uid() {
@@ -20,7 +20,7 @@ export function ChatInterface() {
 
   const emitSessionsUpdate = useCallback((sess: string[], activeId?: string) => {
     window.dispatchEvent(
-      new CustomEvent('nikita:sessions', { detail: { sessions: sess, activeSessionId: activeId } }),
+      new CustomEvent('nqita:sessions', { detail: { sessions: sess, activeSessionId: activeId } }),
     );
   }, []);
 
@@ -80,13 +80,13 @@ export function ChatInterface() {
       }
     };
 
-    window.addEventListener('nikita:new-chat', onNewChat);
-    window.addEventListener('nikita:select-session', onSelectSession as EventListener);
-    window.addEventListener('nikita:delete-session', onDeleteSession as EventListener);
+    window.addEventListener('nqita:new-chat', onNewChat);
+    window.addEventListener('nqita:select-session', onSelectSession as EventListener);
+    window.addEventListener('nqita:delete-session', onDeleteSession as EventListener);
     return () => {
-      window.removeEventListener('nikita:new-chat', onNewChat);
-      window.removeEventListener('nikita:select-session', onSelectSession as EventListener);
-      window.removeEventListener('nikita:delete-session', onDeleteSession as EventListener);
+      window.removeEventListener('nqita:new-chat', onNewChat);
+      window.removeEventListener('nqita:select-session', onSelectSession as EventListener);
+      window.removeEventListener('nqita:delete-session', onDeleteSession as EventListener);
     };
   }, [sessions, activeSessionId, emitSessionsUpdate]);
 
@@ -107,7 +107,7 @@ export function ChatInterface() {
       
       if (res.error) {
         if (res.error.status === 401 && res.error.code === 'PAYMENT_REQUIRED') {
-          window.dispatchEvent(new CustomEvent('nikita:auth-wall'));
+          window.dispatchEvent(new CustomEvent('nqita:auth-wall'));
         }
         throw new Error(res.error.message);
       }
@@ -128,7 +128,7 @@ export function ChatInterface() {
       }
       
       // Refresh credits after successful chat
-      window.dispatchEvent(new CustomEvent('nikita:refresh-credits'));
+      window.dispatchEvent(new CustomEvent('nqita:refresh-credits'));
     } catch (err) {
       const errMsg = err instanceof Error ? err.message : 'Something went wrong.';
       setError(errMsg);
@@ -152,7 +152,7 @@ export function ChatInterface() {
                 <span className="text-2xl font-bold text-accent">ER</span>
               </div>
               <h1 className="text-3xl font-bold text-white tracking-tight mb-4">
-                How can Nikita help you today?
+                How can Nqita help you today?
               </h1>
               <p className="text-muted-foreground text-base max-w-sm leading-relaxed">
                 Integrated intelligence for the WokSpec ecosystem. 
@@ -187,7 +187,7 @@ export function ChatInterface() {
         <div className="w-full max-w-2xl pointer-events-auto">
           <ChatInput onSend={handleSend} disabled={isLoading} />
           <p className="mt-4 text-[10px] text-center text-muted/40 uppercase tracking-[0.2em] font-bold">
-            Nikita Intelligence — WokSpec Ecosystem
+            Nqita Intelligence — WokSpec Ecosystem
           </p>
         </div>
       </div>

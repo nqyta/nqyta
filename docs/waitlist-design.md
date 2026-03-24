@@ -1,6 +1,6 @@
-# Nikita Waitlist Page — Design Brief
+# Nqita Waitlist Page — Design Brief
 
-Destination: `https://nikita.wokspec.org`
+Destination: `https://nqita.wokspec.org`
 
 Goal: fast, friendly waitlist capture for the browser extension and API, with a simple pink-led visual identity.
 
@@ -15,7 +15,7 @@ Goal: fast, friendly waitlist capture for the browser extension and API, with a 
 1) **Hero**: short headline (“Your AI layer, everywhere you browse”), one-sentence subcopy, primary CTA button `Join the waitlist`, secondary `View docs` link.
 2) **Form**: email input, optional role dropdown (Developer / Product / Founder), checkbox to opt into dev updates. Inline success state—replace the form with “You’re on the list” and next steps.
 3) **Proof Points**: three bullets (Privacy-respecting memory, Works across WokSpec products, Fast browser-native panel). Keep to one line each.
-4) **How it fits**: 2-column text block explaining extension + API with a small code snippet showing `NikitaWidget` usage.
+4) **How it fits**: 2-column text block explaining extension + API with a small code snippet showing `NqitaWidget` usage.
 5) **Footer**: links to Docs, Status, API reference, Privacy. Keep slim; no social icons.
 
 ## Tone & Copy
@@ -30,6 +30,6 @@ Goal: fast, friendly waitlist capture for the browser extension and API, with a 
 - Ship as static page; target <50KB CSS and no client JS beyond the form submit.
 
 ## Handoff Notes
-- Publish under `apps/nikita/apps/web` (or the landing page entry) with the pink theme applied globally.
-- Hook the form to the existing waitlist endpoint (POST `/v1/waitlist` on nikita API when available); if not wired yet, store locally and display success mock.
+- Publish under `apps/web` (or the landing page entry) with the pink theme applied globally.
+- Hook the form to the existing waitlist endpoint (POST `/v1/waitlist` on the Nqita API when available); if not wired yet, store locally and display success mock.
 - Reuse the shared header/footer from wokspec.org only if it does not introduce dark theme styles; otherwise include a minimal local nav.

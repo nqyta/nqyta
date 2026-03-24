@@ -3,10 +3,10 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 
 type RoleOption =
+  | 'Terminal User'
+  | 'Developer'
+  | 'Founder'
   | 'Pixel Artist'
-  | 'Animator'
-  | 'Systems Dev'
-  | 'Frontend Dev'
   | 'Designer'
   | 'Curious Human';
 
@@ -18,45 +18,33 @@ type WaitlistEntry = {
 };
 
 const roleOptions: RoleOption[] = [
+  'Terminal User',
+  'Developer',
+  'Founder',
   'Pixel Artist',
-  'Animator',
-  'Systems Dev',
-  'Frontend Dev',
   'Designer',
   'Curious Human',
 ];
 
-const proofPoints = [
-  'Pixel companion energy, built to live on your desktop instead of another tab.',
-  'Privacy-first by default, with local-first memory and calm ambient behavior.',
-  'Open-source by intent, with clear workstreams for artists, platform engineers, and UX builders.',
-];
-
-const contributorTracks = [
+const signalCards = [
   {
-    label: 'pixel art',
-    detail: 'Idle loops, walk cycles, reactions, desk scenes, and emotional range.',
+    label: 'starts in terminal',
+    detail: 'Talk to Nqita directly from your CLI first. That is the first surface, not an afterthought.',
   },
   {
-    label: 'runtime dev',
-    detail: 'CLI, daemon, Groq routing, memory, tool execution, and local orchestration.',
+    label: 'persists everywhere',
+    detail: 'The goal is an agent that follows your work across tools, tabs, windows, and eventually the OS itself.',
   },
   {
-    label: 'overlay / ux',
-    detail: 'Desktop embodiment, bubble design, onboarding, and full-view interaction.',
+    label: 'bring your own key',
+    detail: 'Use your own model keys or use the hosted path with limits while the system matures.',
   },
-];
-
-const unlocks = [
-  { label: 'Desktop sprite', value: 'Lv. 01' },
-  { label: 'Browser panel', value: 'Lv. 02' },
-  { label: 'API access', value: 'Lv. 03' },
 ];
 
 const questSteps = [
-  'Drop your email into the capsule.',
-  'Pick the role that matches your build style.',
-  'Get a ping when the first cutesy builds go live.',
+  'Join the waitlist.',
+  'Get the terminal-first builds.',
+  'Watch Nqita evolve into a real OS-level agent.',
 ];
 
 const storageKey = 'nqita-waitlist-v1';
@@ -81,7 +69,7 @@ function readStoredEntries(): WaitlistEntry[] {
 
 export default function HomePage() {
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState<RoleOption>('Developer');
+  const [role, setRole] = useState<RoleOption>('Terminal User');
   const [wantsUpdates, setWantsUpdates] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [savedCount, setSavedCount] = useState(0);
@@ -92,7 +80,7 @@ export default function HomePage() {
     setSubmitted(entries.some((entry) => entry.email.toLowerCase() === email.toLowerCase()));
   }, [email]);
 
-  const progressValue = useMemo(() => Math.min(88, 44 + savedCount * 7), [savedCount]);
+  const progressValue = useMemo(() => Math.min(92, 38 + savedCount * 8), [savedCount]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -127,46 +115,45 @@ export default function HomePage() {
           <span className="brandmark__sprite">NQ</span>
           <span>
             <strong>Nqita</strong>
-            <small>pink pixel desktop friend</small>
+            <small>persistent pink ai agent</small>
           </span>
         </a>
 
         <nav className="topbar__nav" aria-label="Primary">
-          <a href="/contribute">Contribute</a>
-          <a href="/docs">Docs</a>
+          <a href="#waitlist-form">Waitlist</a>
           <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
-            ws-nqita
+            GitHub
           </a>
         </nav>
       </header>
 
       <section className="hero shell">
         <div className="hero__copy">
-          <p className="pixel-pill">waitlist quest open</p>
+          <p className="pixel-pill">pixel agent waitlist</p>
           <h1>
-            A cutesy pink pixel pal
+            starts in your terminal.
             <br />
-            for your desktop life.
+            keeps growing everywhere.
           </h1>
           <p className="hero__lede">
-            Nqita is becoming an ambient desktop companion with sprite moods, soft autonomy, and
-            game-like charm. We are actively recruiting pixel artists, systems developers, and UX
-            contributors while early builds come together at <strong>nqita.wokspec.org</strong>.
+            Nqita is an AI agent that begins in the CLI and keeps pushing outward: into your desktop,
+            your tools, your browser, and eventually the operating system itself. She should feel
+            persistent, embodied, pink, and a little unreal.
           </p>
 
           <div className="hero__actions">
             <a className="pixel-button pixel-button--primary" href="#waitlist-form">
               Join the waitlist
             </a>
-            <a className="pixel-button pixel-button--secondary" href="/contribute">
-              Help build Nqita
+            <a className="pixel-button pixel-button--secondary" href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
+              See the build
             </a>
           </div>
 
           <div className="quest-panel">
             <div className="quest-panel__header">
-              <span>launch meter</span>
-              <strong>{progressValue}% charged</strong>
+              <span>build meter</span>
+              <strong>{progressValue}% awake</strong>
             </div>
             <div className="quest-bar" aria-hidden="true">
               <span style={{ width: `${progressValue}%` }} />
@@ -198,12 +185,18 @@ export default function HomePage() {
             </div>
 
             <div className="unlock-grid">
-              {unlocks.map((item) => (
-                <div key={item.label} className="unlock-card">
-                  <span>{item.label}</span>
-                  <strong>{item.value}</strong>
-                </div>
-              ))}
+              <div className="unlock-card">
+                <span>phase one</span>
+                <strong>terminal</strong>
+              </div>
+              <div className="unlock-card">
+                <span>phase two</span>
+                <strong>desktop</strong>
+              </div>
+              <div className="unlock-card">
+                <span>phase three</span>
+                <strong>everywhere</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -211,19 +204,19 @@ export default function HomePage() {
 
       <section className="shell content-grid">
         <article className="panel panel--soft" id="waitlist-form">
-          <div className="panel__eyebrow">join the party</div>
-          <h2>Claim your spot on the first wave.</h2>
+          <div className="panel__eyebrow">waitlist</div>
+          <h2>Get on the list for the first terminal-first builds.</h2>
           <p>
-            The current flow stores your signup in this browser while the shared waitlist backend is
-            being wired up. It still gives you a clean, reusable handoff list for launch prep.
+            This version stores signups locally in the browser until the shared endpoint is wired. The
+            product direction is already clear: Nqita should persist wherever she can.
           </p>
 
           {submitted ? (
             <div className="success-box" role="status" aria-live="polite">
               <strong>You&apos;re on the list.</strong>
               <p>
-                Your browser saved this waitlist entry. When the shared endpoint lands, this flow can
-                switch from local capture to live collection without changing the page design.
+                Your signup is saved locally in this browser. The live waitlist endpoint can replace
+                this later without changing the page flow.
               </p>
             </div>
           ) : (
@@ -233,14 +226,14 @@ export default function HomePage() {
                 <input
                   type="email"
                   required
-                  placeholder="you@dreambuilds.dev"
+                  placeholder="you@persistentagents.dev"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </label>
 
               <label>
-                Role
+                You are
                 <select value={role} onChange={(event) => setRole(event.target.value as RoleOption)}>
                   {roleOptions.map((option) => (
                     <option key={option} value={option}>
@@ -256,24 +249,27 @@ export default function HomePage() {
                   checked={wantsUpdates}
                   onChange={(event) => setWantsUpdates(event.target.checked)}
                 />
-                <span>Send me build notes and launch pings.</span>
+                <span>Send me launch notes, build drops, and access updates.</span>
               </label>
 
               <button className="pixel-button pixel-button--primary" type="submit">
-                Save my waitlist slot
+                Save my slot
               </button>
             </form>
           )}
         </article>
 
         <article className="panel">
-          <div className="panel__eyebrow">why it feels different</div>
-          <h2>Game energy without the noise.</h2>
-          <ul className="proof-list">
-            {proofPoints.map((point) => (
-              <li key={point}>{point}</li>
+          <div className="panel__eyebrow">what Nqita is</div>
+          <h2>Not another tab. Not another dashboard.</h2>
+          <div className="contributor-list">
+            {signalCards.map((item) => (
+              <div key={item.label} className="contributor-card">
+                <strong>{item.label}</strong>
+                <p>{item.detail}</p>
+              </div>
             ))}
-          </ul>
+          </div>
           <div className="tiny-stat">
             <span>saved local signups</span>
             <strong>{savedCount.toString().padStart(2, '0')}</strong>
@@ -283,80 +279,33 @@ export default function HomePage() {
 
       <section className="shell lower-grid">
         <article className="panel">
-          <div className="panel__eyebrow">how it fits</div>
-          <h2>Desktop character first, web layer second.</h2>
+          <div className="panel__eyebrow">runtime direction</div>
+          <h2>Bring your own key, or use the hosted path with limits.</h2>
           <p>
-            Nqita starts as a desktop sprite with moods, lightweight reactions, and a strong sense of
-            presence. The web layer is there to handle docs, onboarding, keys, and launch access.
+            Nqita should work in two modes. Bring your own key if you want full control over providers
+            and cost, or use the hosted path with guardrails and limits while the ecosystem gets built.
           </p>
           <p>
-            That means the project needs more than one kind of contributor: pixel artists to define
-            her emotional range, systems engineers to build her runtime, and UX people to make the
-            embodiment feel intentional.
+            The first public experience starts in the terminal. The long-term version is a full OS-level
+            integrated agent that can live across your work instead of inside a single app.
           </p>
         </article>
 
         <article className="panel panel--code">
-          <div className="panel__eyebrow">future web handoff</div>
-          <h2>When the API hooks in.</h2>
-          <pre>{`POST https://nqita.wokspec.org/api/v1/waitlist
-{
-  "email": "you@dreambuilds.dev",
-  "role": "${role}",
-  "updates": ${wantsUpdates}
-}`}</pre>
-        </article>
-      </section>
-
-      <section className="shell recruit-grid">
-        <article className="panel panel--soft">
-          <div className="panel__eyebrow">open source call</div>
-          <h2>We need artists, devs, and people with taste.</h2>
-          <p>
-            Nqita only works if the visual identity, runtime behavior, and desktop embodiment all land
-            together. This is not just a coding project. It needs sprite craft, systems work, motion,
-            interaction design, and strong product judgment.
-          </p>
-          <div className="contributor-list">
-            {contributorTracks.map((track) => (
-              <div key={track.label} className="contributor-card">
-                <strong>{track.label}</strong>
-                <p>{track.detail}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className="panel">
-          <div className="panel__eyebrow">where to start</div>
-          <h2>Join where your craft matters most.</h2>
-          <ul className="proof-list">
-            <li>Artists: idle loops, walk cycles, expressions, desk scenes, and bubble styling.</li>
-            <li>Developers: CLI, daemon, Groq-first provider flow, overlay runtime, and local memory.</li>
-            <li>Designers and product minds: onboarding, calm interaction patterns, and sprite-to-terminal coherence.</li>
-          </ul>
-          <div className="hero__actions">
-            <a className="pixel-button pixel-button--primary" href="/contribute">
-              Read contribution guide
-            </a>
-            <a
-              className="pixel-button pixel-button--secondary"
-              href="https://github.com/ws-nqita"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open GitHub
-            </a>
-          </div>
+          <div className="panel__eyebrow">shape of the thing</div>
+          <h2>Terminal first. Desktop next.</h2>
+          <pre>{`nqita chat
+  -> local daemon
+  -> byok or hosted model path
+  -> sprite state + memory
+  -> deeper OS integration over time`}</pre>
         </article>
       </section>
 
       <footer className="footer shell">
         <span>nqita.wokspec.org</span>
         <div className="footer__links">
-          <a href="/contribute">Contribute</a>
-          <a href="/docs">Docs</a>
-          <a href="/login">Login</a>
+          <a href="#waitlist-form">Waitlist</a>
           <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
             ws-nqita
           </a>

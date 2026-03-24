@@ -1,6 +1,6 @@
-# Nikita — Full API Reference
+# Nqita — Full API Reference
 
-Base URL: `https://nikita.wokspec.org`
+Base URL: `https://nqita.wokspec.org`
 
 All endpoints require `Authorization: Bearer <jwt>` (WokSpec JWT, signed with the shared `JWT_SECRET`).
 

@@ -19,7 +19,7 @@ workspaces.get('/', async (c) => {
           name: 'Personal Workspace',
           role: 'owner',
           projects: [
-            { id: 'proj-nikita', name: 'Nikita AI' },
+            { id: 'proj-nqita', name: 'Nqita AI' },
             { id: 'proj-studio', name: 'Studio Assets' }
           ]
         }

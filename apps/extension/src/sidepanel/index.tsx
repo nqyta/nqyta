@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from "react"
 import "./style.css"
-import { eralChat } from "@/lib/nikita"
+import { eralChat } from "@/lib/eral"
 
 const API_URL = process.env.PLASMO_PUBLIC_API_URL ?? "https://api.wokspec.org"
 
@@ -20,7 +20,7 @@ interface ServerClip {
 }
 
 interface ChatMessage {
-  role: "user" | "nikita"
+  role: "user" | "assistant"
   content: string
 }
 
@@ -35,7 +35,7 @@ function SidePanel() {
   const [deletingId, setDeletingId] = useState<string | null>(null)
 
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
-    { role: "nikita", content: "Hi! I'm Nikita. I can read what's on this page — just ask me anything, or use the page context button below." },
+    { role: "assistant", content: "Hi! I'm Nqita. I can read what's on this page — just ask me anything, or use the page context button below." },
   ])
   const [chatInput, setChatInput] = useState("")
   const [pageContext, setPageContext] = useState<string | null>(null)
@@ -114,12 +114,12 @@ function SidePanel() {
         capabilities: ["sidepanel-chat"],
       })
       if (result) {
-        setChatMessages((prev) => [...prev, { role: "nikita", content: result.message || "…" }])
+        setChatMessages((prev) => [...prev, { role: "assistant", content: result.message || "…" }])
       } else {
-        setChatMessages((prev) => [...prev, { role: "nikita", content: "Something went wrong. Please try again." }])
+        setChatMessages((prev) => [...prev, { role: "assistant", content: "Something went wrong. Please try again." }])
       }
     } catch {
-      setChatMessages((prev) => [...prev, { role: "nikita", content: "Network error. Please try again." }])
+      setChatMessages((prev) => [...prev, { role: "assistant", content: "Network error. Please try again." }])
     } finally {
       setEralLoading(false)
     }
@@ -133,7 +133,7 @@ function SidePanel() {
       setChatMessages((prev) => [
         ...prev,
         { role: "user", content: "Summarize this page" },
-        { role: "nikita", content: res.summary },
+        { role: "assistant", content: res.summary },
       ])
       setSummaryStatus("done")
     } else {
@@ -198,7 +198,7 @@ function SidePanel() {
       <div className="flex items-center justify-between border-b border-[#27272a] px-4 py-2.5 flex-shrink-0">
         <div className="flex items-center gap-2">
           <span style={{ color: VIOLET }} className="text-base">✦</span>
-          <span className="font-semibold tracking-tight text-[13px]">Nikita</span>
+          <span className="font-semibold tracking-tight text-[13px]">Nqita</span>
         </div>
         {user && (
           <div className="flex items-center gap-2">
@@ -220,7 +220,7 @@ function SidePanel() {
         <div className="p-4 space-y-3">
           <div className="flex items-center gap-2 mb-4">
             <span style={{ color: VIOLET }} className="text-xl">✦</span>
-            <p className="text-sm font-medium">Sign in to use Nikita</p>
+            <p className="text-sm font-medium">Sign in to use Nqita</p>
           </div>
           <p className="text-xs text-[#a1a1aa]">Chat with any page, summarize, clip, and use AI on any website.</p>
           <div className="space-y-2 pt-2">
@@ -263,7 +263,7 @@ function SidePanel() {
                 <div className="flex-1 overflow-y-auto p-3 space-y-2 min-h-0">
                   {chatMessages.map((msg, i) => (
                     <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                      {msg.role === "nikita" && (
+                      {msg.role === "assistant" && (
                         <div className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] flex-shrink-0 mr-1.5 mt-0.5" style={{ background: VIOLET }}>
                           ✦
                         </div>
@@ -332,7 +332,7 @@ function SidePanel() {
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSendMessage() }
                       }}
-                      placeholder="Ask Nikita…"
+                      placeholder="Ask Nqita…"
                       rows={1}
                       className="flex-1 resize-none rounded-lg border border-[#27272a] bg-[#18181b] px-3 py-2 text-xs text-[#fafafa] placeholder:text-[#52525b] focus:outline-none min-h-[34px] max-h-[100px] overflow-y-auto"
                       style={{ focusBorderColor: VIOLET } as React.CSSProperties}
@@ -356,7 +356,7 @@ function SidePanel() {
 
                   {chatMessages.length > 1 && (
                     <button
-                      onClick={() => { setChatMessages([{ role: "nikita", content: "Hi! I'm Nikita. Ask me anything about this page." }]); sessionId.current = crypto.randomUUID(); setPageContext(null); setPageTitle("") }}
+                      onClick={() => { setChatMessages([{ role: "assistant", content: "Hi! I'm Nqita. Ask me anything about this page." }]); sessionId.current = crypto.randomUUID(); setPageContext(null); setPageTitle("") }}
                       className="w-full text-[10px] text-[#52525b] hover:text-[#71717a] transition-colors"
                     >
                       Start new conversation
@@ -452,7 +452,7 @@ function SidePanel() {
                     { label: "Studio", url: "https://studio.wokspec.org", icon: "✦", desc: "AI content tools" },
                     { label: "WokHei", url: "https://hei.wokspec.org", icon: "📰", desc: "News + analysis" },
                     { label: "Autiladus", url: "https://autiladus.wokspec.org", icon: "⌘", desc: "Automation runs" },
-                    { label: "Nikita Dashboard", url: "https://nikita.wokspec.org", icon: "✦", desc: "API keys & settings" },
+                    { label: "Nqita Dashboard", url: "https://nqita.wokspec.org", icon: "✦", desc: "API keys & settings" },
                   ].map((item) => (
                     <a
                       key={item.label}

@@ -11,7 +11,7 @@ import { toolsRouter } from './routes/tools';
 import { workspacesRouter } from './routes/workspaces';
 import { creditsRouter } from './routes/credits';
 // @ts-ignore — imported as text blob via wrangler [[rules]]
-import WIDGET_BUNDLE from '../dist/nikita-widget.txt';
+import WIDGET_BUNDLE from '../dist/nqita-widget.txt';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -34,17 +34,17 @@ app.use('*', cors({
     return origin ?? '*';
   },
   allowMethods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization', 'X-Nikita-Source', 'X-Nikita-Anon-Id'],
+  allowHeaders: ['Content-Type', 'Authorization', 'X-Nqita-Source', 'X-Nqita-Anon-Id'],
   credentials: true,
 }));
 
 // ===== INFO =====
 app.get('/', (c) => c.json({
-  service: 'Nikita',
-  description: 'Nikita powers WokSpec AI: context-aware agents that understand your workspace and act across web + internal apps.',
+  service: 'Nqita',
+  description: 'Nqita powers WokSpec AI: context-aware agents that understand your workspace and act across web + internal apps.',
   version: '1.0.0',
-  docs: 'https://nikita.wokspec.org/docs',
-  auth: 'WokSpec JWT or Nikita API key',
+  docs: 'https://nqita.wokspec.org/docs',
+  auth: 'WokSpec JWT or Nqita API key',
   endpoints: {
     chat:       'POST /api/v1/chat',
     generate:   'POST /api/v1/generate',
@@ -94,7 +94,7 @@ app.notFound((c) =>
 );
 
 app.onError((err, c) => {
-  console.error('[Nikita Error]', err);
+  console.error('[Nqita Error]', err);
   return c.json(
     { data: null, error: { code: 'INTERNAL_ERROR', message: 'Internal server error', status: 500 } },
     500

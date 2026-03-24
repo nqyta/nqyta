@@ -64,7 +64,7 @@ status.get('/', async (c) => {
 
   return c.json({
     data: {
-      service: 'Nikita',
+      service: 'Nqita',
       version: '0.4.0',
       status: 'operational',
       timestamp: new Date().toISOString(),

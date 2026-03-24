@@ -27,35 +27,35 @@
 
 ---
 
-# CLAUDE.md — Nikita Agent Guide
+# CLAUDE.md — Nqita Agent Guide
 
 > This file is the authoritative reference for AI coding agents (Claude, Copilot, etc.) working in
-> the Nikita repository. Read it before writing any code.
+> the Nqita repository. Read it before writing any code.
 
 ---
 
 ## Web3 Integration Context
 
-Nikita operates within a Web3-first WokSpec ecosystem. The following applies to all Nikita development:
+Nqita operates within a Web3-first WokSpec ecosystem. The following applies to all Nqita development:
 
 - **Product context injection** must include Web3 product contexts: Orinadus (DeFi/blockchain research), and any future on-chain products
 - **Extension** should support Web3 workflows: summarizing smart contract docs, explaining transaction data, analyzing governance proposals pasted from Snapshot/Tally
 - **Chat** should be fluent in Web3 terminology when `product` context indicates a Web3 surface
-- Never surface wallet private keys, seed phrases, or signing prompts via Nikita — any Web3 action must be handled client-side by the dApp, never proxied through Nikita
+- Never surface wallet private keys, seed phrases, or signing prompts via Nqita — any Web3 action must be handled client-side by the dApp, never proxied through Nqita
 
 ---
 
-## What Is Nikita?
+## What Is Nqita?
 
-Nikita is the **AI backbone for the WokSpec ecosystem**. It runs as a **Cloudflare Worker** (edge
+Nqita is the **AI backbone for the WokSpec ecosystem**. It runs as a **Cloudflare Worker** (edge
 runtime, zero cold-starts) built with **Hono** and exposes a REST API used by every WokSpec
 product.
 
-**What Nikita powers:**
+**What Nqita powers:**
 
 - **Chat with persistent session memory** — conversation history stored in Cloudflare KV, 7-day
   TTL, up to 40 messages per session.
-- **Brand context injection** — Nikita knows the user's product context and injects relevant prompts.
+- **Brand context injection** — Nqita knows the user's product context and injects relevant prompts.
 - **Site-wide AI companion** — embedded via `widget.js` on any WokSpec product page.
 - **News analysis** — backs WokHei article summarization and sentiment analysis.
 - **Content generation** — powers Studio's prompt-driven generation features.
@@ -66,7 +66,7 @@ product.
 
 ## High-Fidelity UI Standards (Anti-Vibe-Coded)
 
-The Nikita Web App, Extension UI, and Widget must follow the WokSpec High-Fidelity UI Standards defined in [../UI_STANDARDS.md](../UI_STANDARDS.md).
+The Nqita Web App, Extension UI, and Widget must follow the WokSpec High-Fidelity UI Standards defined in [../UI_STANDARDS.md](../UI_STANDARDS.md).
 
 - **8pt Spacing:** Use strict 4/8pt increments for all layout gaps and paddings in the chat UI and extension overlays.
 - **Loading States:** Every AI interaction must show a distinct loading state (e.g., typing indicator, skeleton screen for analysis).
@@ -78,10 +78,10 @@ The Nikita Web App, Extension UI, and Widget must follow the WokSpec High-Fideli
 ### Monorepo Structure
 
 ```
-Nikita/
+Nqita/
 ├── src/                          # Root: Hono Cloudflare Worker API
 │   ├── index.ts                  # Main Hono app, route mounting, CORS
-│   ├── types.ts                  # All shared TypeScript types (Env, NikitaUser, etc.)
+│   ├── types.ts                  # All shared TypeScript types (Env, NqitaUser, etc.)
 │   ├── middleware/
 │   │   └── index.ts              # securityHeaders, requestId, rateLimit, requireAuth, optionalAuth
 │   ├── routes/
@@ -96,7 +96,7 @@ Nikita/
 │       ├── memory.ts             # KV-backed session memory (getMemory, appendMemory, clearMemory)
 │       ├── context.ts            # buildContext(), productPromptExtras() — brand/context injection
 │       ├── jwt.ts                # WokSpec JWT verification (jose)
-│       ├── api-keys.ts           # Nikita API key create/verify (eral_ prefix)
+│       ├── api-keys.ts           # Nqita API key create/verify (eral_ prefix)
 │       └── rate-limit.ts         # Cloudflare KV-based rate limiting
 ├── apps/
 │   ├── extension/                # Plasmo browser extension (Chrome/Firefox/Edge)
@@ -113,8 +113,8 @@ Nikita/
 │           ├── app/              # Next.js App Router pages
 │           └── components/       # Chat UI components
 ├── dist/
-│   └── nikita-widget.js            # Pre-built embeddable widget bundle (IIFE)
-├── widget/                       # Widget source (builds to dist/nikita-widget.js)
+│   └── nqita-widget.js            # Pre-built embeddable widget bundle (IIFE)
+├── widget/                       # Widget source (builds to dist/nqita-widget.js)
 ├── wrangler.toml                 # Cloudflare Worker configuration
 ├── package.json                  # Root (API) package.json
 └── tsconfig.json                 # Root TypeScript config
@@ -129,8 +129,8 @@ Nikita/
 | **Never log user message content** | User messages are private. They must not appear in Worker logs, Sentry breadcrumbs, or any observability output. Log request metadata (session ID, user ID, product) only. |
 | **All API routes require auth** | Use `requireAuth()` middleware. The only exceptions are `/health`, `/api/health`, `/`, and `/widget.js`. Never add an unauthenticated route that touches user data. |
 | **Never expose JWT_SECRET** | It is a Cloudflare Worker secret. Never log it, echo it in responses, or commit it to source. |
-| **Never break the `/v1/chat` contract** | WokSpec products, the browser extension, and external sites built on Nikita API keys depend on the request/response shape. |
-| **Widget must work in any page context** | `dist/nikita-widget.js` runs as an IIFE on third-party pages. It must not pollute the global scope, must not conflict with host page CSS, and must not trigger CSP violations on well-configured sites. |
+| **Never break the `/v1/chat` contract** | WokSpec products, the browser extension, and external sites built on Nqita API keys depend on the request/response shape. |
+| **Widget must work in any page context** | `dist/nqita-widget.js` runs as an IIFE on third-party pages. It must not pollute the global scope, must not conflict with host page CSS, and must not trigger CSP violations on well-configured sites. |
 | **Session memory is user-scoped** | The KV key format is `mem:{userId}:{sessionId}`. Never allow one user to read another user's memory by accepting user IDs from request bodies. |
 | **Content scripts must not pollute the DOM** | Plasmo content scripts run in isolated worlds but CSS can still leak. Use Shadow DOM for all UI injections. |
 
@@ -154,10 +154,10 @@ The root Hono app:
    import { Hono } from 'hono';
    import { zValidator } from '@hono/zod-validator';
    import { z } from 'zod';
-   import type { Env, NikitaUser } from '../types';
+   import type { Env, NqitaUser } from '../types';
    import { requireAuth, rateLimit } from '../middleware';
 
-   const myRouter = new Hono<{ Bindings: Env; Variables: { user: NikitaUser } }>();
+   const myRouter = new Hono<{ Bindings: Env; Variables: { user: NqitaUser } }>();
    myRouter.use('*', requireAuth());
 
    myRouter.post(
@@ -186,7 +186,7 @@ The root Hono app:
 
 ### Response Shape
 
-All Nikita responses follow a consistent envelope:
+All Nqita responses follow a consistent envelope:
 
 ```ts
 // Success
@@ -204,12 +204,12 @@ Always use this shape. Never return a bare object or a different error format.
 
 ### Two Auth Methods
 
-Nikita supports two authentication methods, both via the `Authorization: Bearer <token>` header:
+Nqita supports two authentication methods, both via the `Authorization: Bearer <token>` header:
 
 | Method | Token shape | Source |
 |--------|-------------|--------|
 | **WokSpec JWT** | Standard JWT | Issued by WokSpec auth (shared `JWT_SECRET`) |
-| **Nikita API key** | `eral_<random>` | Created via `POST /v1/keys`, stored in `KV_API_KEYS` |
+| **Nqita API key** | `eral_<random>` | Created via `POST /v1/keys`, stored in `KV_API_KEYS` |
 
 ### Using Auth in Routes
 
@@ -222,12 +222,12 @@ router.use('*', requireAuth());
 router.use('*', requireAuth('chat'));
 
 // Get the resolved user:
-const user = c.get('user');   // NikitaUser — always non-null after requireAuth
-const auth = c.get('auth');   // NikitaAuth — includes method and apiKey record
+const user = c.get('user');   // NqitaUser — always non-null after requireAuth
+const auth = c.get('auth');   // NqitaAuth — includes method and apiKey record
 
 // Optional auth — user may be null
 router.use('*', optionalAuth());
-const user = c.get('user'); // NikitaUser | null
+const user = c.get('user'); // NqitaUser | null
 ```
 
 ### API Key Scopes
@@ -302,7 +302,7 @@ const productExtras = productPromptExtras(product);
 
 ### Product Integrations
 
-| Product | What Nikita does |
+| Product | What Nqita does |
 |---------|---------------|
 | `woksite` | General site-wide AI companion |
 | `studio` | Content generation with Studio brand templates |
@@ -430,7 +430,7 @@ For local development, use `.dev.vars` (gitignored, equivalent to `.env` for `wr
 | `KV_SESSIONS` | Session metadata |
 | `KV_RATE_LIMITS` | Rate limit buckets |
 | `KV_MEMORY` | Conversation history |
-| `KV_API_KEYS` | Nikita API keys (external site access) |
+| `KV_API_KEYS` | Nqita API keys (external site access) |
 
 **To set a secret in production:**
 
@@ -455,15 +455,15 @@ Edge MV3, and Opera MV3 from a single source tree.
 apps/extension/src/
 ├── background/index.ts       # Service worker — handles auth, API requests, message routing
 ├── contents/                 # Content scripts (injected into web pages)
-│   ├── nikita-web.ts           # Web page detector / initializer (matches: all_urls)
+│   ├── nqita-web.ts           # Web page detector / initializer (matches: all_urls)
 │   ├── ai-overlay.tsx        # AI chat overlay UI
-│   ├── nikita-compose.tsx      # AI compose assist (email, docs, forms)
-│   ├── nikita-compose.css      # Compose UI styles
-│   ├── nikita-selection.tsx    # Selection-based AI (explain, rewrite)
-│   └── nikita-video.tsx        # Video transcript/summary overlay
+│   ├── eral-compose.tsx      # AI compose assist (email, docs, forms)
+│   ├── nqita-compose.css      # Compose UI styles
+│   ├── eral-selection.tsx    # Selection-based AI (explain, rewrite)
+│   └── eral-video.tsx        # Video transcript/summary overlay
 ├── lib/
 │   ├── api.ts                # API client (routes through background service worker)
-│   ├── nikita.ts               # Nikita-specific types and helpers
+│   ├── eral.ts               # Nqita-specific types and helpers
 │   ├── storage.ts            # Extension storage (Plasmo storage API)
 │   └── errors.ts             # Error types
 ├── popup/index.tsx           # Browser toolbar popup
@@ -500,7 +500,7 @@ const response = await sendToBackground({ name: "chat", body: { message } });
 // In background/index.ts:
 import { onMessage } from "@plasmohq/messaging";
 onMessage("chat", async (req) => {
-  // ... call Nikita API ...
+  // ... call Nqita API ...
   return { response: "..." };
 });
 ```
@@ -510,7 +510,7 @@ onMessage("chat", async (req) => {
 Extension env vars are prefixed with `PLASMO_PUBLIC_` (exposed to content scripts):
 
 ```
-PLASMO_PUBLIC_API_URL=https://nikita.wokspec.org
+PLASMO_PUBLIC_API_URL=https://nqita.wokspec.org
 PLASMO_PUBLIC_SITE_URL=https://wokspec.org
 ```
 
@@ -541,14 +541,14 @@ Build output goes to `apps/extension/build/<target>-<version>/`.
 
 ---
 
-## Embeddable Widget (`dist/nikita-widget.js`)
+## Embeddable Widget (`dist/nqita-widget.js`)
 
 The widget is a pre-built IIFE that can be embedded on any page:
 
 ```html
-<script src="https://nikita.wokspec.org/widget.js"></script>
+<script src="https://nqita.wokspec.org/widget.js"></script>
 <script>
-  NikitaWidget.init({
+  NqitaWidget.init({
     apiKey: 'eral_...',
     product: 'woksite',
     theme: 'dark',
@@ -556,11 +556,11 @@ The widget is a pre-built IIFE that can be embedded on any page:
 </script>
 ```
 
-The widget bundle is served directly by the Worker from `dist/nikita-widget.js` (imported as a
+The widget bundle is served directly by the Worker from `dist/nqita-widget.js` (imported as a
 text blob via `wrangler.toml` `[[rules]]`).
 
 **Widget rules:**
-- Must not define globals other than `window.NikitaWidget`.
+- Must not define globals other than `window.NqitaWidget`.
 - Must use Shadow DOM for all UI.
 - Must not include large dependencies (keep bundle size minimal).
 - Must work on pages with strict CSP (no `eval`, no `new Function`).
@@ -575,7 +575,7 @@ The web app provides:
 - API key management at `/keys`
 - Documentation at `/docs`
 
-It is a **static export** (configured in `next.config.ts`). It talks to the Nikita API at
+It is a **static export** (configured in `next.config.ts`). It talks to the Nqita API at
 `NEXT_PUBLIC_API_URL`.
 
 ---
@@ -588,10 +588,10 @@ It is a **static export** (configured in `next.config.ts`). It talks to the Niki
 
 ```ts
 // ✅ OK — log metadata
-console.log('[Nikita/chat] user=%s session=%s product=%s', user.id, sessionId, product);
+console.log('[Nqita/chat] user=%s session=%s product=%s', user.id, sessionId, product);
 
 // ❌ NEVER — do not log message content
-console.log('[Nikita/chat] message=%s', message);
+console.log('[Nqita/chat] message=%s', message);
 ```
 
 The only place user message content should exist is:
@@ -601,7 +601,7 @@ The only place user message content should exist is:
 
 ### Auth Security
 
-- `JWT_SECRET` must match between Nikita and WokAPI exactly. If they don't match, all JWTs will
+- `JWT_SECRET` must match between Nqita and WokAPI exactly. If they don't match, all JWTs will
   fail verification.
 - API key hashes are stored in KV (not plaintext). The `verifyApiKey()` function handles
   comparison.
@@ -618,14 +618,14 @@ since auth is the security boundary). However:
 
 ---
 
-## Extending Nikita's Integration with WokSpec Products
+## Extending Nqita's Integration with WokSpec Products
 
-When a new WokSpec product wants to use Nikita:
+When a new WokSpec product wants to use Nqita:
 
 1. **Add the product's origin** to the `wokspecOrigins` allowlist in `src/index.ts`.
 2. **Add a product case** to `productPromptExtras()` in `src/lib/context.ts`.
 3. **Add the product value** to the `ProductSchema` zod enum in the route handlers.
-4. **Issue an Nikita API key** with appropriate scopes for the product's backend (if server-to-server).
+4. **Issue an Nqita API key** with appropriate scopes for the product's backend (if server-to-server).
 5. **For browser-based access**, use the WokSpec JWT (user must be logged in).
 
 ---
@@ -724,7 +724,7 @@ npm run build             # Build + type check (via Plasmo)
 | File | Purpose |
 |------|---------|
 | `src/index.ts` | Hono app entry point, CORS, route mounting |
-| `src/types.ts` | All TypeScript types — Env, NikitaUser, ApiResponse, etc. |
+| `src/types.ts` | All TypeScript types — Env, NqitaUser, ApiResponse, etc. |
 | `src/middleware/index.ts` | securityHeaders, requestId, rateLimit, requireAuth, optionalAuth |
 | `src/routes/chat.ts` | Chat with persistent memory |
 | `src/routes/generate.ts` | Content generation |
@@ -736,12 +736,12 @@ npm run build             # Build + type check (via Plasmo)
 | `src/lib/memory.ts` | KV conversation memory |
 | `src/lib/context.ts` | Brand context and product prompt injection |
 | `src/lib/jwt.ts` | WokSpec JWT verification |
-| `src/lib/api-keys.ts` | Nikita API key management |
+| `src/lib/api-keys.ts` | Nqita API key management |
 | `src/lib/rate-limit.ts` | KV-based rate limiting |
 | `wrangler.toml` | Cloudflare Worker config (bindings, routes, rules) |
 | `apps/extension/src/background/index.ts` | Extension service worker |
 | `apps/extension/src/lib/api.ts` | Extension API client |
-| `dist/nikita-widget.js` | Pre-built embeddable widget |
+| `dist/nqita-widget.js` | Pre-built embeddable widget |
 
 ---
 

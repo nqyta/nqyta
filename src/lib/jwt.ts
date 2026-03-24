@@ -35,7 +35,7 @@ export async function signInternalToken(userId: string, secret: string): Promise
     .setSubject(userId)
     .setIssuedAt()
     .setExpirationTime('5m')
-    .setIssuer('https://nikita.wokspec.org')
+    .setIssuer('https://nqita.wokspec.org')
     .setAudience('https://api.wokspec.org')
     .sign(key);
 }

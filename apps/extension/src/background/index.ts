@@ -1,6 +1,6 @@
 import { reportError } from "@/lib/errors"
 import { fetchWithAuth, API_URL } from "@/lib/api"
-import { eralAnalyze } from "@/lib/nikita"
+import { eralAnalyze } from "@/lib/eral"
 
 const SITE_URL = process.env.PLASMO_PUBLIC_SITE_URL ?? "https://wokspec.org"
 
@@ -25,12 +25,12 @@ async function setupContextMenus() {
     const { lastError } = chrome.runtime
     if (lastError) return
 
-    chrome.contextMenus.create({ id: "nikita-ask-selection", title: "Ask Nikita about this", contexts: ["selection"] })
-    chrome.contextMenus.create({ id: "nikita-explain-selection", title: "Explain with Nikita", contexts: ["selection"] })
-    chrome.contextMenus.create({ id: "nikita-clip-text", title: "Save to Nikita", contexts: ["selection"] })
-    chrome.contextMenus.create({ id: "nikita-save-image", title: "Save image with Nikita", contexts: ["image"] })
-    chrome.contextMenus.create({ id: "nikita-save-link", title: "Save link with Nikita", contexts: ["link"] })
-    chrome.contextMenus.create({ id: "nikita-download-media", title: "Download with Nikita", contexts: ["video", "audio"] })
+    chrome.contextMenus.create({ id: "nqita-ask-selection", title: "Ask Nqita about this", contexts: ["selection"] })
+    chrome.contextMenus.create({ id: "nqita-explain-selection", title: "Explain with Nqita", contexts: ["selection"] })
+    chrome.contextMenus.create({ id: "nqita-clip-text", title: "Save to Nqita", contexts: ["selection"] })
+    chrome.contextMenus.create({ id: "nqita-save-image", title: "Save image with Nqita", contexts: ["image"] })
+    chrome.contextMenus.create({ id: "nqita-save-link", title: "Save link with Nqita", contexts: ["link"] })
+    chrome.contextMenus.create({ id: "nqita-download-media", title: "Download with Nqita", contexts: ["video", "audio"] })
   })
 }
 
@@ -48,22 +48,22 @@ chrome.runtime.onStartup.addListener(setupContextMenus)
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (!tab?.id) return
   switch (info.menuItemId) {
-    case "nikita-ask-selection":
+    case "nqita-ask-selection":
       chrome.tabs.sendMessage(tab.id, { type: "ERAL_ASK", text: info.selectionText })
       break
-    case "nikita-explain-selection":
+    case "nqita-explain-selection":
       chrome.tabs.sendMessage(tab.id, { type: "ERAL_EXPLAIN", text: info.selectionText })
       break
-    case "nikita-clip-text":
+    case "nqita-clip-text":
       chrome.tabs.sendMessage(tab.id, { type: "CLIP_SELECTION", text: info.selectionText, pageUrl: info.pageUrl })
       break
-    case "nikita-save-image":
+    case "nqita-save-image":
       chrome.tabs.sendMessage(tab.id, { type: "SAVE_IMAGE", srcUrl: info.srcUrl, pageUrl: info.pageUrl })
       break
-    case "nikita-save-link":
+    case "nqita-save-link":
       chrome.tabs.sendMessage(tab.id, { type: "SAVE_LINK", linkUrl: info.linkUrl, pageUrl: info.pageUrl })
       break
-    case "nikita-download-media":
+    case "nqita-download-media":
       chrome.tabs.sendMessage(tab.id, { type: "DOWNLOAD_MEDIA", srcUrl: info.srcUrl, pageUrl: info.pageUrl })
       break
   }

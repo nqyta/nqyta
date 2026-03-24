@@ -90,7 +90,7 @@ analyze.post(
         error: null,
       });
     } catch (err) {
-      console.error('[Nikita/analyze] Error:', err);
+      console.error('[Nqita/analyze] Error:', err);
       return c.json(
         { data: null, error: { code: 'AI_ERROR', message: 'Analysis failed', status: 500 } },
         500

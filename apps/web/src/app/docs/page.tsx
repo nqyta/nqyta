@@ -266,7 +266,7 @@ export default function DocsPage() {
       <nav style={S.nav}>
         <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: 'inherit' }}>
           <div style={{ width: '1.75rem', height: '1.75rem', background: accent, borderRadius: '0.4rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.9rem', color: '#fff' }}>E</div>
-          <span style={{ fontWeight: 700, fontSize: '1rem' }}>Nikita</span>
+          <span style={{ fontWeight: 700, fontSize: '1rem' }}>Nqita</span>
         </a>
         <div style={{ display: 'flex', gap: '1.25rem', fontSize: '0.875rem' }}>
           <a href="/chat" style={{ color: 'var(--muted)', textDecoration: 'none' }}>Chat</a>
@@ -583,31 +583,31 @@ Content-Type: application/json`}
             <CodeBlock lang="html">
 {`<script
   src="https://nqita.wokspec.org/api/widget.js"
-  data-nikita-key="eral_your_key_here"
-  data-nikita-name="Nqita"
-  data-nikita-color="#7c3aed"
-  data-nikita-position="bottom-right"
-  data-nikita-greeting="Hi! How can I help?"
+  data-nqita-key="eral_your_key_here"
+  data-nqita-name="Nqita"
+  data-nqita-color="#7c3aed"
+  data-nqita-position="bottom-right"
+  data-nqita-greeting="Hi! How can I help?"
 ></script>`}
             </CodeBlock>
 
             <h3 style={S.h3}>Data attributes</h3>
             <ParamsTable params={[
-              { name: 'data-nikita-key',      type: 'string', required: true,  desc: 'Your Nqita API key' },
-              { name: 'data-nikita-name',     type: 'string', required: false, desc: 'Display name shown in the widget header', default: 'Nqita' },
-              { name: 'data-nikita-color',    type: 'string', required: false, desc: 'Brand color (hex)', default: '#7c3aed' },
-              { name: 'data-nikita-position', type: "'bottom-right' | 'bottom-left'", required: false, desc: 'Widget position on screen', default: 'bottom-right' },
-              { name: 'data-nikita-greeting', type: 'string', required: false, desc: 'Initial message shown in the chat', default: "Hi! I'm Nqita…" },
-              { name: 'data-nikita-placeholder', type: 'string', required: false, desc: 'Input placeholder text', default: 'Ask me anything...' },
+              { name: 'data-nqita-key',      type: 'string', required: true,  desc: 'Your Nqita API key' },
+              { name: 'data-nqita-name',     type: 'string', required: false, desc: 'Display name shown in the widget header', default: 'Nqita' },
+              { name: 'data-nqita-color',    type: 'string', required: false, desc: 'Brand color (hex)', default: '#7c3aed' },
+              { name: 'data-nqita-position', type: "'bottom-right' | 'bottom-left'", required: false, desc: 'Widget position on screen', default: 'bottom-right' },
+              { name: 'data-nqita-greeting', type: 'string', required: false, desc: 'Initial message shown in the chat', default: "Hi! I'm Nqita…" },
+              { name: 'data-nqita-placeholder', type: 'string', required: false, desc: 'Input placeholder text', default: 'Ask me anything...' },
             ]} />
 
             <h3 style={S.h3}>Imperative API</h3>
             <p style={{ ...S.muted, marginBottom: '0.75rem' }}>
-              After the script loads, <code style={S.inlineCode}>window.Nikita</code> exposes an imperative API:
+              After the script loads, <code style={S.inlineCode}>window.Nqita</code> exposes an imperative API:
             </p>
             <CodeBlock lang="javascript">
 {`// Init programmatically (skips data-attribute auto-init)
-window.Nikita.init({
+window.Nqita.init({
   apiKey:    'eral_...',
   name:      'Nqita',
   color:     '#7c3aed',
@@ -615,9 +615,9 @@ window.Nikita.init({
   greeting:  'Hi! How can I help?',
 });
 
-window.Nikita.open();     // open the chat panel
-window.Nikita.close();    // close the chat panel
-window.Nikita.destroy();  // remove from DOM`}
+window.Nqita.open();     // open the chat panel
+window.Nqita.close();    // close the chat panel
+window.Nqita.destroy();  // remove from DOM`}
             </CodeBlock>
           </section>
 

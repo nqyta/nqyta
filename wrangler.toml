@@ -27,7 +27,7 @@ CF_AI_FALLBACK_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast"
 
 # KV Namespaces
 # KV_SESSIONS: shared with WokAPI for cross-service auth verification
-# KV_RATE_LIMITS: per-IP rate limiting for all Nikita endpoints
+# KV_RATE_LIMITS: per-IP rate limiting for all Nqita endpoints
 # KV_MEMORY: conversation memory store (TTL-based, per user session)
 [[kv_namespaces]]
 binding = "KV_SESSIONS"

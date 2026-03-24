@@ -133,7 +133,7 @@ generate.post(
         error: null,
       });
     } catch (err) {
-      console.error('[Nikita/generate] Error:', err);
+      console.error('[Nqita/generate] Error:', err);
       return c.json(
         { data: null, error: { code: 'AI_ERROR', message: 'Generation failed', status: 500 } },
         500

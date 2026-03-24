@@ -56,7 +56,7 @@ function buildHeaders(): HeadersInit {
   const anonId = getAnonId();
   const h: Record<string, string> = { 
     'Content-Type': 'application/json',
-    'X-Nikita-Anon-Id': anonId
+    'X-Nqita-Anon-Id': anonId
   };
   if (key) {
     h['Authorization'] = `Bearer ${key}`;

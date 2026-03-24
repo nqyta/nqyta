@@ -91,7 +91,7 @@ function describeIntegration(integration: IntegrationContext): string[] {
 }
 
 /**
- * Build an enriched context string that gives Nikita knowledge about the
+ * Build an enriched context string that gives Nqita knowledge about the
  * current user and any page/product context provided by the client.
  */
 export function buildContext(options: {

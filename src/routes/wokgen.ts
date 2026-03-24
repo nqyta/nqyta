@@ -92,7 +92,7 @@ studio.post(
         error: null,
       });
     } catch (err) {
-      console.error('[Nikita/studio] Error:', err);
+      console.error('[Nqita/studio] Error:', err);
       return c.json(
         { data: null, error: { code: 'AI_ERROR', message: 'Prompt generation failed', status: 500 } },
         500

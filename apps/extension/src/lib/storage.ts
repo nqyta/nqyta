@@ -1,5 +1,5 @@
 /**
- * Nikita extension storage utilities
+ * Nqita extension storage utilities
  * Uses chrome.storage.session for sensitive data (tokens)
  * Uses chrome.storage.local for persisted preferences and clip history
  * Uses chrome.storage.sync for cross-device settings

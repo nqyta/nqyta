@@ -1,8 +1,8 @@
 {
-  "name": "@wokspec/nikita",
+  "name": "@wokspec/nqita",
   "version": "0.1.0",
   "private": true,
-  "description": "Nikita — WokSpec AI. The intelligent layer that integrates across all WokSpec products.",
+  "description": "Nqita — WokSpec AI. The intelligent layer that integrates across all WokSpec products.",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",

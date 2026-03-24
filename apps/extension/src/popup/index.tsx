@@ -97,7 +97,7 @@ function Popup() {
     {
       key: "sidepanel",
       icon: "✦",
-      label: "Ask Nikita",
+      label: "Ask Nqita",
       onClick: handleOpenSidePanel,
       violet: true,
     },
@@ -142,15 +142,15 @@ function Popup() {
       <div className="flex items-center justify-between border-b border-[#27272a] px-4 py-3">
         <div className="flex items-center gap-2">
           <span style={{ color: VIOLET }} className="text-base">✦</span>
-          <span className="text-sm font-semibold tracking-tight">Nikita</span>
+          <span className="text-sm font-semibold tracking-tight">Nqita</span>
         </div>
         <a
-          href="https://nikita.wokspec.org"
+          href="https://nqita.wokspec.org"
           target="_blank"
           rel="noopener noreferrer"
           className="text-xs text-[#a1a1aa] hover:text-[#fafafa] transition-colors"
         >
-          nikita.wokspec.org ↗
+          nqita.wokspec.org ↗
         </a>
       </div>
 
@@ -221,7 +221,7 @@ function Popup() {
         <div className="p-4">
           <div className="flex items-center gap-2 mb-3">
             <span style={{ color: VIOLET }} className="text-xl">✦</span>
-            <p className="text-sm font-medium">Sign in to Nikita</p>
+            <p className="text-sm font-medium">Sign in to Nqita</p>
           </div>
           <p className="text-xs text-[#a1a1aa] mb-4">
             Chat with any page, summarize content, clip pages, and download media.
@@ -248,4 +248,3 @@ function Popup() {
 }
 
 export default Popup
-

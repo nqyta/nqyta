@@ -51,7 +51,7 @@ async function resolveAuth(c: Context<{ Bindings: Env; Variables: any }>): Promi
 
   if (!token) {
     // Check for anonymous session cookie for free trial
-    const anonId = c.req.header('X-Nikita-Anon-Id');
+    const anonId = c.req.header('X-Nqita-Anon-Id');
     if (anonId) {
       const user: EralUser = { id: `anon:${anonId}`, email: '', displayName: 'Trial User', avatarUrl: null, plan: 'free' };
       return { user, apiKey: null, method: 'none' };
@@ -119,7 +119,7 @@ export const requireAuth = (
     if (!auth.user) {
       console.warn(`[Auth-Failed] 401 Unauthorized - IP: ${ip} - Method: ${method} - URL: ${url}`);
       return c.json(
-        { data: null, error: { code: 'UNAUTHORIZED', message: 'Provide a WokSpec JWT or Nikita API key (Authorization: Bearer <token>)', status: 401 } },
+        { data: null, error: { code: 'UNAUTHORIZED', message: 'Provide a WokSpec JWT or Nqita API key (Authorization: Bearer <token>)', status: 401 } },
         401
       );
     }

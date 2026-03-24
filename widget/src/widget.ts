@@ -1,28 +1,27 @@
 // ============================================================
-// Nikita Widget — embeddable AI chat for any website
+// Nqita Widget — embeddable AI chat for any website
 //
 // Usage:
-//   <script src="https://nikita.wokspec.org/widget.js"
-//           data-nikita-key="eral_your_api_key"
-//           data-nikita-name="Nikita"
-//           data-nikita-color="#7c3aed"
-//           data-nikita-position="bottom-right"
-//           data-nikita-greeting="Hi! How can I help?"
-//           data-nikita-product="support-portal"
-//           data-nikita-quality="best"
-//           data-nikita-page-context="true"
+//   <script src="https://nqita.wokspec.org/widget.js"
+//           data-nqita-key="eral_your_api_key"
+//           data-nqita-name="Nqita"
+//           data-nqita-color="#7c3aed"
+//           data-nqita-position="bottom-right"
+//           data-nqita-greeting="Hi! How can I help?"
+//           data-nqita-product="support-portal"
+//           data-nqita-quality="best"
+//           data-nqita-page-context="true"
 //   ></script>
 //
 // Or imperatively:
-//   window.EralWidget.init({ apiKey: 'eral_...', name: 'Nikita' })
+//   window.EralWidget.init({ apiKey: 'eral_...', name: 'Nqita' })
 //   window.EralWidget.open()
 //   window.EralWidget.close()
 //   window.EralWidget.destroy()
 //
-// `window.Nikita` remains as a compatibility alias.
 // ============================================================
 
-const ERAL_API = 'https://nikita.wokspec.org/api';
+const ERAL_API = 'https://nqita.wokspec.org/api';
 const ROOT_ID = '__eral_host__';
 
 type Position = 'bottom-right' | 'bottom-left';
@@ -110,16 +109,16 @@ function buildStyles(): string {
       box-sizing: border-box;
     }
 
-    .nikita-shell {
+    .nqita-shell {
       position: relative;
       font-family: inherit;
     }
 
-    .nikita-btn {
+    .nqita-btn {
       width: 56px;
       height: 56px;
       border-radius: 18px;
-      background: var(--nikita-accent);
+      background: var(--nqita-accent);
       border: none;
       cursor: pointer;
       display: flex;
@@ -129,18 +128,18 @@ function buildStyles(): string {
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .nikita-btn:hover {
+    .nqita-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 40px rgba(124, 58, 237, 0.45);
     }
 
-    .nikita-btn svg {
+    .nqita-btn svg {
       width: 24px;
       height: 24px;
       stroke: #fff;
     }
 
-    .nikita-panel {
+    .nqita-panel {
       width: 380px;
       height: min(600px, 80vh);
       margin-bottom: 16px;
@@ -154,13 +153,13 @@ function buildStyles(): string {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .nikita-hidden {
+    .nqita-hidden {
       opacity: 0;
       pointer-events: none;
       transform: translateY(20px) scale(0.95);
     }
 
-    .nikita-header {
+    .nqita-header {
       padding: 16px 20px;
       background: #141414;
       border-bottom: 1px solid #222;
@@ -169,17 +168,17 @@ function buildStyles(): string {
       justify-content: space-between;
     }
 
-    .nikita-header-title {
+    .nqita-header-title {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .nikita-avatar {
+    .nqita-avatar {
       width: 32px;
       height: 32px;
       border-radius: 10px;
-      background: var(--nikita-accent);
+      background: var(--nqita-accent);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -189,14 +188,14 @@ function buildStyles(): string {
       letter-spacing: 0.05em;
     }
 
-    .nikita-name {
+    .nqita-name {
       font-weight: 600;
       font-size: 15px;
       color: #fff;
       letter-spacing: -0.01em;
     }
 
-    .nikita-badge {
+    .nqita-badge {
       font-size: 10px;
       color: #888;
       text-transform: uppercase;
@@ -205,7 +204,7 @@ function buildStyles(): string {
       font-weight: 500;
     }
 
-    .nikita-close {
+    .nqita-close {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       cursor: pointer;
@@ -219,12 +218,12 @@ function buildStyles(): string {
       transition: all 0.15s ease;
     }
 
-    .nikita-close:hover {
+    .nqita-close:hover {
       background: rgba(255, 255, 255, 0.1);
       color: #fff;
     }
 
-    .nikita-messages {
+    .nqita-messages {
       flex: 1;
       overflow-y: auto;
       padding: 20px;
@@ -234,21 +233,21 @@ function buildStyles(): string {
       background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.03), transparent 40%);
     }
 
-    .nikita-msg {
+    .nqita-msg {
       display: flex;
       gap: 10px;
       max-width: 100%;
     }
 
-    .nikita-user {
+    .nqita-user {
       justify-content: flex-end;
     }
 
-    .nikita-assistant {
+    .nqita-assistant {
       justify-content: flex-start;
     }
 
-    .nikita-bubble {
+    .nqita-bubble {
       padding: 12px 16px;
       border-radius: 16px;
       font-size: 14px;
@@ -257,41 +256,41 @@ function buildStyles(): string {
       word-break: break-word;
     }
 
-    .nikita-user .nikita-bubble {
-      background: var(--nikita-accent);
+    .nqita-user .nqita-bubble {
+      background: var(--nqita-accent);
       color: #fff;
       border-bottom-right-radius: 4px;
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
     }
 
-    .nikita-assistant .nikita-bubble {
+    .nqita-assistant .nqita-bubble {
       background: #1a1a1a;
       color: #f0f0f0;
       border-bottom-left-radius: 4px;
       border: 1px solid #2a2a2a;
     }
 
-    .nikita-typing {
+    .nqita-typing {
       display: flex;
       align-items: center;
       gap: 4px;
       padding: 12px 18px !important;
     }
 
-    .nikita-typing span {
+    .nqita-typing span {
       width: 5px;
       height: 5px;
       background: #555;
       border-radius: 50%;
-      animation: nikita-pulse 1.5s infinite;
+      animation: nqita-pulse 1.5s infinite;
     }
 
-    @keyframes nikita-pulse {
+    @keyframes nqita-pulse {
       0%, 100% { opacity: 0.3; transform: scale(0.8); }
       50% { opacity: 1; transform: scale(1.1); }
     }
 
-    .nikita-input-row {
+    .nqita-input-row {
       padding: 16px 20px 20px;
       border-top: 1px solid #222;
       background: #111;
@@ -300,7 +299,7 @@ function buildStyles(): string {
       gap: 10px;
     }
 
-    .nikita-input-container {
+    .nqita-input-container {
       position: relative;
       display: flex;
       align-items: flex-end;
@@ -311,11 +310,11 @@ function buildStyles(): string {
       transition: border-color 0.2s ease;
     }
 
-    .nikita-input-container:focus-within {
+    .nqita-input-container:focus-within {
       border-color: rgba(124, 58, 237, 0.5);
     }
 
-    .nikita-textarea {
+    .nqita-textarea {
       flex: 1;
       background: transparent;
       border: none;
@@ -330,12 +329,12 @@ function buildStyles(): string {
       font-family: inherit;
     }
 
-    .nikita-send {
+    .nqita-send {
       width: 34px;
       height: 34px;
       margin: 4px;
       border-radius: 10px;
-      background: var(--nikita-accent);
+      background: var(--nqita-accent);
       border: none;
       cursor: pointer;
       display: flex;
@@ -344,18 +343,18 @@ function buildStyles(): string {
       transition: all 0.2s ease;
     }
 
-    .nikita-send:hover:not(:disabled) {
+    .nqita-send:hover:not(:disabled) {
       background: #8b5cf6;
       transform: scale(1.05);
     }
 
-    .nikita-send:disabled {
+    .nqita-send:disabled {
       background: #333;
       opacity: 0.5;
       cursor: not-allowed;
     }
 
-    .nikita-send svg {
+    .nqita-send svg {
       width: 16px;
       height: 16px;
       fill: none;
@@ -363,7 +362,7 @@ function buildStyles(): string {
       stroke-width: 2.5;
     }
 
-    .nikita-powered {
+    .nqita-powered {
       text-align: center;
       padding-bottom: 12px;
       font-size: 9px;
@@ -373,18 +372,18 @@ function buildStyles(): string {
       font-weight: 600;
     }
 
-    .nikita-powered a {
+    .nqita-powered a {
       color: inherit;
       text-decoration: none;
       transition: color 0.15s ease;
     }
 
-    .nikita-powered a:hover {
+    .nqita-powered a:hover {
       color: #666;
     }
 
     @media (max-width: 480px) {
-      .nikita-panel {
+      .nqita-panel {
         width: calc(100vw - 32px);
         height: min(560px, calc(100vh - 120px));
         margin-right: 0;
@@ -435,11 +434,11 @@ class EralWidgetInstance {
   constructor(config: EralConfig) {
     this.config = {
       apiKey: config.apiKey,
-      name: normalizeText(config.name) ?? 'Nikita Intelligence',
+      name: normalizeText(config.name) ?? 'Nqita Intelligence',
       color: normalizeText(config.color) ?? '#7c3aed',
       position: config.position ?? 'bottom-right',
       quality: config.quality ?? 'balanced',
-      greeting: normalizeText(config.greeting) ?? "Hey — I'm Nikita. Ask me anything about WokSpec, the work, or what we can build together.",
+      greeting: normalizeText(config.greeting) ?? "Hey — I'm Nqita. Ask me anything about WokSpec, the work, or what we can build together.",
       placeholder: normalizeText(config.placeholder) ?? 'Type your message...',
       apiUrl: normalizeText(config.apiUrl) ?? ERAL_API,
       product: normalizeText(config.product),
@@ -456,7 +455,7 @@ class EralWidgetInstance {
     this.host.id = ROOT_ID;
     this.host.style.position = 'fixed';
     this.host.style.zIndex = '2147483647';
-    this.host.style.setProperty('--nikita-accent', this.config.color);
+    this.host.style.setProperty('--nqita-accent', this.config.color);
     this.applyPosition();
 
     this.shadow = this.host.attachShadow({ mode: 'open' });
@@ -476,42 +475,42 @@ class EralWidgetInstance {
   }
 
   private buildDOM(): HTMLDivElement {
-    const shell = createElement('div', 'nikita-shell');
+    const shell = createElement('div', 'nqita-shell');
 
-    this.panel = createElement('div', 'nikita-panel nikita-hidden');
+    this.panel = createElement('div', 'nqita-panel nqita-hidden');
 
-    const header = createElement('div', 'nikita-header');
-    const headerTitle = createElement('div', 'nikita-header-title');
+    const header = createElement('div', 'nqita-header');
+    const headerTitle = createElement('div', 'nqita-header-title');
 
-    const avatar = createElement('div', 'nikita-avatar');
+    const avatar = createElement('div', 'nqita-avatar');
     avatar.textContent = 'ER';
 
-    const nameWrap = createElement('div', 'nikita-name-wrap');
-    const name = createElement('div', 'nikita-name');
+    const nameWrap = createElement('div', 'nqita-name-wrap');
+    const name = createElement('div', 'nqita-name');
     name.textContent = this.config.name;
-    const badge = createElement('div', 'nikita-badge');
+    const badge = createElement('div', 'nqita-badge');
     badge.textContent = 'WokSpec Ecosystem';
 
     nameWrap.append(name, badge);
     headerTitle.append(avatar, nameWrap);
 
-    const closeButton = createElement('button', 'nikita-close');
+    const closeButton = createElement('button', 'nqita-close');
     closeButton.type = 'button';
     closeButton.setAttribute('aria-label', 'Close');
     closeButton.textContent = '✕';
 
     header.append(headerTitle, closeButton);
 
-    this.messagesEl = createElement('div', 'nikita-messages');
+    this.messagesEl = createElement('div', 'nqita-messages');
 
-    const inputRow = createElement('div', 'nikita-input-row');
-    const inputContainer = createElement('div', 'nikita-input-container');
+    const inputRow = createElement('div', 'nqita-input-row');
+    const inputContainer = createElement('div', 'nqita-input-container');
     
-    this.textarea = createElement('textarea', 'nikita-textarea');
+    this.textarea = createElement('textarea', 'nqita-textarea');
     this.textarea.rows = 1;
     this.textarea.placeholder = this.config.placeholder;
 
-    this.sendBtn = createElement('button', 'nikita-send');
+    this.sendBtn = createElement('button', 'nqita-send');
     this.sendBtn.type = 'button';
     this.sendBtn.setAttribute('aria-label', 'Send');
     this.sendBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -519,14 +518,14 @@ class EralWidgetInstance {
     inputContainer.append(this.textarea, this.sendBtn);
     inputRow.append(inputContainer);
 
-    const powered = createElement('div', 'nikita-powered');
+    const powered = createElement('div', 'nqita-powered');
     powered.innerHTML = '<a href="https://wokspec.org" target="_blank" rel="noopener noreferrer">Powered by WokSpec</a>';
 
     this.panel.append(header, this.messagesEl, inputRow, powered);
 
-    const toggleButton = createElement('button', 'nikita-btn');
+    const toggleButton = createElement('button', 'nqita-btn');
     toggleButton.type = 'button';
-    toggleButton.setAttribute('aria-label', 'Open Nikita AI');
+    toggleButton.setAttribute('aria-label', 'Open Nqita AI');
     toggleButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 8v4"/><path d="M12 12h.01"/></svg>';
 
     shell.append(this.panel, toggleButton);
@@ -579,10 +578,10 @@ class EralWidgetInstance {
 
   private pushMessage(message: Message): void {
     this.messages.push(message);
-    const item = createElement('div', `nikita-msg nikita-${message.role}`);
+    const item = createElement('div', `nqita-msg nqita-${message.role}`);
     item.dataset.id = message.id;
 
-    const bubble = createElement('div', 'nikita-bubble');
+    const bubble = createElement('div', 'nqita-bubble');
     bubble.textContent = message.content;
     item.appendChild(bubble);
 
@@ -591,11 +590,11 @@ class EralWidgetInstance {
   }
 
   private showTyping(): HTMLDivElement {
-    const item = createElement('div', 'nikita-msg nikita-assistant');
+    const item = createElement('div', 'nqita-msg nqita-assistant');
     item.id = '__eral_typing__';
 
-    const bubble = createElement('div', 'nikita-bubble');
-    bubble.classList.add('nikita-typing');
+    const bubble = createElement('div', 'nqita-bubble');
+    bubble.classList.add('nqita-typing');
     for (let index = 0; index < 3; index += 1) {
       bubble.appendChild(createElement('span'));
     }
@@ -635,7 +634,7 @@ class EralWidgetInstance {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.config.apiKey}`,
-          'X-Nikita-Source': 'widget',
+          'X-Nqita-Source': 'widget',
         },
         body: JSON.stringify(this.buildRequestBody(text)),
       });
@@ -674,13 +673,13 @@ class EralWidgetInstance {
 
   openPanel(): void {
     this.open = true;
-    this.panel.classList.remove('nikita-hidden');
+    this.panel.classList.remove('nqita-hidden');
     this.textarea.focus();
   }
 
   close(): void {
     this.open = false;
-    this.panel.classList.add('nikita-hidden');
+    this.panel.classList.add('nqita-hidden');
   }
 
   destroy(): void {
@@ -710,7 +709,7 @@ const EralWidget = {
 
 function autoInit(): void {
   const script = document.currentScript as HTMLScriptElement | null
-    ?? document.querySelector<HTMLScriptElement>('script[data-nikita-key]');
+    ?? document.querySelector<HTMLScriptElement>('script[data-nqita-key]');
 
   if (!script) return;
 
@@ -762,11 +761,11 @@ if (document.readyState === 'loading') {
 declare global {
   interface Window {
     EralWidget: typeof EralWidget;
-    Nikita: typeof EralWidget;
+    Nqita: typeof EralWidget;
   }
 }
 
 window.EralWidget = EralWidget;
-window.Nikita = EralWidget;
+window.Nqita = EralWidget;
 
 export {};

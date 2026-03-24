@@ -1,5 +1,5 @@
 // ============================================================
-// Nikita — WokSpec AI
+// Nqita — WokSpec AI
 // Cloudflare Worker bindings & shared type definitions
 // ============================================================
 
