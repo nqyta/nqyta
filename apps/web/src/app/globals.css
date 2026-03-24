@@ -16,7 +16,6 @@
   --pink-strong: #ea2e8c;
   --pink-deep: #b41565;
   --shadow: rgba(160, 37, 95, 0.12);
-  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 *,
@@ -33,7 +32,7 @@ body {
   background:
     linear-gradient(180deg, #fff8fc 0%, #ffe8f3 48%, #ffd6ea 100%);
   color: var(--text);
-  font-family: var(--font-body);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
