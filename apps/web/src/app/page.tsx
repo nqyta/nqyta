@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Press_Start_2P } from 'next/font/google';
 import { spriteOptions } from '../content/site';
 
@@ -41,126 +42,146 @@ function DiscordIcon() {
   );
 }
 
+function ArrowIcon({ direction }: { direction: 'left' | 'right' }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d={
+          direction === 'left'
+            ? 'M14.7 5.3 8 12l6.7 6.7 1.4-1.4L10.8 12l5.3-5.3-1.4-1.4Z'
+            : 'm9.3 5.3-1.4 1.4 5.3 5.3-5.3 5.3 1.4 1.4L16 12 9.3 5.3Z'
+        }
+      />
+    </svg>
+  );
+}
+
 export default function HomePage() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   useEffect(() => {
     const handleMove = (event: MouseEvent) => {
-      document.documentElement.style.setProperty('--cursor-x', `${event.clientX}px`);
-      document.documentElement.style.setProperty('--cursor-y', `${event.clientY}px`);
+      const root = document.documentElement;
+      const xRatio = event.clientX / window.innerWidth - 0.5;
+      const yRatio = event.clientY / window.innerHeight - 0.5;
+
+      root.style.setProperty('--cursor-x', `${event.clientX}px`);
+      root.style.setProperty('--cursor-y', `${event.clientY}px`);
+      root.style.setProperty('--tilt-x', `${(-yRatio * 12).toFixed(2)}deg`);
+      root.style.setProperty('--tilt-y', `${(xRatio * 14).toFixed(2)}deg`);
+      root.style.setProperty('--glow-x', `${50 + xRatio * 18}%`);
+      root.style.setProperty('--glow-y', `${38 + yRatio * 18}%`);
     };
 
     window.addEventListener('mousemove', handleMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMove);
   }, []);
 
+  const activeSprite = spriteOptions[activeIndex];
+
+  function go(step: number) {
+    setActiveIndex((current) => (current + step + spriteOptions.length) % spriteOptions.length);
+  }
+
   return (
-    <main className="site-page site-page--single">
-      <div className="site-grid" aria-hidden="true" />
-      <div className="ambient-orbs" aria-hidden="true">
-        <span className="ambient-orb ambient-orb--one" />
-        <span className="ambient-orb ambient-orb--two" />
-        <span className="ambient-orb ambient-orb--three" />
-        <span className="ambient-orb ambient-orb--four" />
-      </div>
-
-      <section className="site-shell hero-minimal">
-        <div className="hero-minimal__frame" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-        <h1 className={`hero-minimal__title ${pixelFont.className}`}>Nqita</h1>
-
-        <div className="hero-minimal__actions">
-          <a
-            className="action-button action-button--primary"
-            href="https://github.com/ws-nqita"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <GitHubIcon />
-            GitHub
-          </a>
-          <a
-            className="action-button action-button--secondary"
-            href="https://discord.gg/juunCaGpTW"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <DiscordIcon />
-            Discord
-          </a>
-        </div>
-
-        <a className="scroll-cue" href="#sprites">
-          scroll down
-        </a>
-      </section>
-
-      <section className="site-shell sprite-river" id="sprites">
-        <div className="section-heading section-heading--center">
-          <p className="eyebrow">Potential sprites</p>
-          <h2>Potential sprites</h2>
-        </div>
-
-        <div className="sprite-gallery sprite-gallery--wide">
-          {spriteOptions.map((sprite, index) => (
-            <div
-              key={sprite.id}
-              className={`sprite-stage-card sprite-stage-card--v${(index % 3) + 1}`}
-              aria-label={`Potential sprite ${index + 1}`}
-            >
-              <div className="sprite-stage-card__glow" aria-hidden="true" />
-              <img className="sprite-stage-card__image" src={sprite.src} alt={sprite.alt} />
+    <main className={`site-page home-page ${pixelFont.className}`}>
+      <section className="home-shell hero-home">
+        <div className="hero-home__scene" aria-hidden="true">
+          <div className="scene-camera">
+            <div className="scene-room">
+              <div className="scene-floor" />
+              <div className="pixel-cube pixel-cube--left">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="pixel-cube pixel-cube--center">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="pixel-cube pixel-cube--right">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="scene-wall scene-wall--back" />
+              <div className="scene-wall scene-wall--left" />
+              <div className="scene-wall scene-wall--right" />
             </div>
-          ))}
+          </div>
+        </div>
+
+        <div className="hero-home__content">
+          <h1 className="hero-home__title">Nqita</h1>
+          <div className="hero-home__actions">
+            <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
+              <GitHubIcon />
+              GitHub
+            </a>
+            <a href="https://discord.gg/juunCaGpTW" target="_blank" rel="noreferrer">
+              <DiscordIcon />
+              Discord
+            </a>
+          </div>
+          <p className="hero-home__help">We need help.</p>
+          <p className="hero-home__need">Pixel art. Motion. Frontend.</p>
+          <a className="hero-home__jump" href="#sprites">
+            potential sprites
+          </a>
         </div>
       </section>
 
-      <section className="site-shell story-river" id="about">
-        <div className="section-heading section-heading--center">
-          <p className="eyebrow">What is going on</p>
-          <h2>A calmer, clearer version of the project.</h2>
+      <section className="home-shell home-section" id="sprites">
+        <div className="home-section__head">
+          <p>Potential sprites</p>
+          <span>
+            {String(activeIndex + 1).padStart(2, '0')} / {String(spriteOptions.length).padStart(2, '0')}
+          </span>
         </div>
 
-        <div className="story-layout">
-          <article className="story-card story-card--large">
-            <p>
-              Nqita is an open source desktop companion by WokSpec. The goal is simple: make a
-              character that can live on your computer and feel present without feeling annoying.
-            </p>
-            <p>
-              The real thing is still being built. What works today is the CLI and local runtime.
-              That is the starting point, not the final shape.
-            </p>
-          </article>
+        <div className="sprite-viewer">
+          <button
+            className="sprite-viewer__nav sprite-viewer__nav--left"
+            type="button"
+            onClick={() => go(-1)}
+            aria-label="Previous sprite"
+          >
+            <ArrowIcon direction="left" />
+          </button>
 
-          <article className="story-card">
-            <h3>Where help matters most</h3>
-            <p>
-              Pixel art, animation, art direction, visual design, and motion are some of the
-              biggest open needs right now.
-            </p>
-          </article>
+          <div className="sprite-viewer__panel">
+            <div className="sprite-viewer__scene" aria-hidden="true">
+              <span className="sprite-viewer__plane sprite-viewer__plane--left" />
+              <span className="sprite-viewer__plane sprite-viewer__plane--right" />
+              <span className="sprite-viewer__plane sprite-viewer__plane--floor" />
+            </div>
+            <img className="sprite-viewer__sprite" src={activeSprite.src} alt={activeSprite.alt} />
+          </div>
 
-          <article className="story-card">
-            <h3>Open source scope</h3>
-            <p>
-              There is room for artists, designers, frontend people, and systems developers. If
-              you can help shape how this looks, moves, or behaves, that work matters.
-            </p>
-          </article>
+          <button
+            className="sprite-viewer__nav sprite-viewer__nav--right"
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Next sprite"
+          >
+            <ArrowIcon direction="right" />
+          </button>
+        </div>
+      </section>
 
-          <article className="story-card">
-            <h3>Where to jump in</h3>
-            <p>
-              Start in the main GitHub org. The live prototype repo is{' '}
-              <a href="https://github.com/ws-nqita/nqita-cli" target="_blank" rel="noreferrer">
-                nqita-cli
-              </a>
-              . The art side especially needs people.
-            </p>
-          </article>
+      <section className="home-shell home-section home-section--info">
+        <div className="home-info">
+          <p>Open source desktop companion by WokSpec.</p>
+          <p>Working now: the local runtime and CLI.</p>
+          <p>We need help with art, design, motion, and frontend.</p>
+          <div className="home-info__links">
+            <Link href="/docs">docs</Link>
+            <a href="https://github.com/ws-nqita/nqita-cli" target="_blank" rel="noreferrer">
+              nqita-cli
+            </a>
+          </div>
         </div>
       </section>
     </main>

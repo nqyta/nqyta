@@ -9,94 +9,68 @@ export const metadata: Metadata = {
 
 export default function DocsPage() {
   return (
-    <main className="site-page site-page--docs">
-      <div className="site-grid" aria-hidden="true" />
-
-      <header className="site-shell site-topbar">
-        <Link className="site-brand" href="/">
-          <span>Nqita</span>
-          <small>open source desktop companion by WokSpec</small>
+    <main className="site-page docs-page">
+      <header className="docs-shell docs-topbar">
+        <Link className="docs-brand" href="/">
+          <strong>Nqita</strong>
+          <span>docs</span>
         </Link>
 
-        <nav className="site-nav" aria-label="Primary">
+        <nav className="docs-nav" aria-label="Primary">
           <Link href="/">home</Link>
           <a href="#overview">overview</a>
-          <a href="#library">docs</a>
-          <Link href="/contribute">contribute</Link>
+          <a href="#links">links</a>
         </nav>
       </header>
 
-      <section className="site-shell page-intro" id="overview">
-        <p className="eyebrow">Documentation</p>
+      <section className="docs-shell docs-hero" id="overview">
+        <p className="docs-kicker">Documentation</p>
         <h1>What the project is trying to build.</h1>
-        <p className="section-copy">
-          This page is the short version. Use it to understand the project before you drop into the
-          deeper repo docs.
+        <p className="docs-copy">
+          This page keeps the story plain. The short version is that Nqita is an open source
+          desktop companion by WokSpec, the CLI is the working prototype today, and the full desktop
+          version still needs art, motion, and interface work.
         </p>
       </section>
 
-      <section className="site-shell content-river">
-        <div className="content-columns">
-          <div className="prose-stack">
+      <section className="docs-shell docs-block">
+        <div className="docs-grid">
+          <div className="docs-card">
             {homepageFacts.map((fact) => (
               <p key={fact}>{fact}</p>
             ))}
           </div>
 
-          <ol className="plain-steps">
-            {buildPlan.map((step) => (
-              <li key={step}>{step}</li>
-            ))}
-          </ol>
+          <div className="docs-card">
+            <ol className="docs-steps">
+              {buildPlan.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 
-      <section className="site-shell docs-river" id="library">
-        <div className="section-heading section-heading--tight">
-          <p className="eyebrow">Reading list</p>
-          <h2>Start with these.</h2>
-          <p className="section-copy">
-            These links are the fastest way to understand the shape of the system, the sprite work,
-            and what is already running today.
-          </p>
-        </div>
-
+      <section className="docs-shell docs-block" id="links">
+        <p className="docs-kicker">Start Here</p>
+        <h2>Useful links.</h2>
         <div className="docs-list">
           {documentationLinks.map((link) => (
-            <a
-              key={link.href}
-              className="doc-row"
-              href={link.href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span className="doc-row__title">{link.title}</span>
-              <span className="doc-row__body">{link.description}</span>
+            <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+              <strong>{link.title}</strong>
+              <span>{link.description}</span>
             </a>
           ))}
         </div>
       </section>
 
-      <section className="site-shell notes-river">
-        <div className="section-heading section-heading--tight">
-          <p className="eyebrow">Current state</p>
-          <h2>What is real right now.</h2>
-        </div>
-
-        <div className="prose-stack prose-stack--wide">
-          <p>
-            The CLI is the runnable public prototype today. It already shows the intended split
-            between the daemon, terminal chat flow, and sprite state updates.
-          </p>
-          <p>
-            The full desktop companion is still being built. The public site exists to explain the
-            direction, recruit contributors, and keep the work visible.
-          </p>
-          <p>
-            If you want to help on the visual side, start with sprite direction, animation, and
-            interface feel. If you want to help on the engineering side, start with the daemon,
-            overlay, state, and permissions work.
-          </p>
+      <section className="docs-shell docs-block">
+        <p className="docs-kicker">Current State</p>
+        <h2>What is real right now.</h2>
+        <div className="docs-notes">
+          <p>The local runtime and CLI are the real working starting point today.</p>
+          <p>The desktop presence, art direction, motion, and full visual feel are still in progress.</p>
+          <p>The project needs help, especially on the art, animation, design, and frontend side.</p>
         </div>
       </section>
     </main>
