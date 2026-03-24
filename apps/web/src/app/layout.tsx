@@ -15,14 +15,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'Nqita',
-  description: 'Open source desktop companion by WokSpec. Pixel art, local runtime, docs, and contribution entry points.',
+  description: 'Open source desktop companion by WokSpec. Pixel-first identity, local runtime, and GitHub-first development.',
   metadataBase: new URL('https://nqita.wokspec.org'),
   openGraph: {
     type: 'website',
     siteName: 'Nqita',
     url: 'https://nqita.wokspec.org',
     title: 'Nqita',
-    description: 'Open source desktop companion by WokSpec with docs, sprite direction, and contribution entry points.',
+    description: 'Open source desktop companion by WokSpec with a pixel-first public site and GitHub-first development.',
     images: [{ url: '/og.png' }],
   },
   twitter: { card: 'summary_large_image', site: '@wokspec' },

@@ -208,6 +208,7 @@ export default function HomePage() {
       <section className="home-shell home-section home-section--info">
         <div className="home-info">
           <p>Open source desktop companion.</p>
+          <p>GitHub first. Site light. Build in public.</p>
           <p>We need pixel art, motion, frontend.</p>
           <a href="https://github.com/ws-nqita/nqita-cli" target="_blank" rel="noreferrer">
             nqita-cli

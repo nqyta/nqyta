@@ -10,7 +10,7 @@ interface ApiKey {
   createdAt: string;
 }
 
-const accent = '#7c3aed';
+const accent = 'var(--accent)';
 const card: React.CSSProperties = { background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '1rem', padding: '1.5rem' };
 const input: React.CSSProperties = { background: 'var(--background)', color: 'var(--foreground)', border: '1px solid var(--border)', borderRadius: '0.625rem', padding: '0.625rem 0.875rem', fontSize: '0.9rem', outline: 'none', flex: 1 };
 const btn = (variant: 'primary' | 'danger' | 'ghost'): React.CSSProperties => ({
@@ -98,7 +98,7 @@ export default function KeysPage() {
       {/* Nav */}
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 2rem', borderBottom: '1px solid var(--border)' }}>
         <a href="/chat" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: 'inherit' }}>
-          <div style={{ width: '1.75rem', height: '1.75rem', background: accent, borderRadius: '0.4rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.9rem', color: '#fff' }}>E</div>
+          <div style={{ width: '1.75rem', height: '1.75rem', background: accent, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.08em', color: '#fff' }}>NQ</div>
           <span style={{ fontWeight: 700, fontSize: '1rem' }}>Nqita</span>
         </a>
         <div style={{ display: 'flex', gap: '1rem', fontSize: '0.875rem' }}>
@@ -117,7 +117,7 @@ export default function KeysPage() {
 
         {/* New key revealed */}
         {newKeyValue && (
-          <div style={{ ...card, borderColor: 'rgba(124,58,237,0.4)', background: 'rgba(124,58,237,0.07)' }}>
+          <div style={{ ...card, borderColor: 'rgba(255,107,174,0.34)', background: 'rgba(255,107,174,0.08)' }}>
             <p style={{ fontWeight: 600, marginBottom: '0.5rem', color: accent }}>🎉 Key created — copy it now, it won't be shown again.</p>
             <div style={{ display: 'flex', gap: '0.625rem', alignItems: 'center' }}>
               <code style={{ flex: 1, background: 'var(--background)', border: '1px solid var(--border)', borderRadius: '0.5rem', padding: '0.625rem 0.875rem', fontSize: '0.85rem', fontFamily: 'ui-monospace, monospace', wordBreak: 'break-all' }}>{newKeyValue}</code>

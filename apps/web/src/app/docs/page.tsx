@@ -8,11 +8,12 @@ export const metadata: Metadata = {
 
 export default function DocsPage() {
   return (
-    <main className="site-page docs-page">
-      <section className="docs-shell docs-simple">
+    <main className="site-page public-page">
+      <section className="public-shell public-card">
+        <div className="public-mark">NQ</div>
         <h1>Docs live on GitHub.</h1>
-        <p>There is no on-site docs section yet.</p>
-        <div className="docs-simple__links">
+        <p>The site stays focused on the public identity. Technical docs, setup notes, and project details stay in the repos for now.</p>
+        <div className="public-links">
           <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
             github.com/ws-nqita
           </a>

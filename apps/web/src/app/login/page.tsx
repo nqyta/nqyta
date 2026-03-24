@@ -54,29 +54,42 @@ export default function LoginPage() {
     color: 'var(--muted)', fontSize: '0.8rem',
   };
   const line: React.CSSProperties = { flex: 1, height: 1, background: 'var(--border)' };
+  const panelStyle: React.CSSProperties = {
+    background: 'var(--card)',
+    border: '1px solid var(--border)',
+    padding: '2.5rem 2rem',
+    width: '100%',
+    maxWidth: '25rem',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '1.5rem',
+    boxShadow: '0 24px 60px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,214,233,0.06)',
+  };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--background)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-      <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '1.25rem', padding: '2.5rem 2rem', width: '100%', maxWidth: '24rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
+    <main className="app-auth-shell">
+      <div style={panelStyle}>
         {/* Logo */}
         <div style={{ textAlign: 'center' }}>
-          <div style={{ width: '3rem', height: '3rem', background: 'var(--accent)', borderRadius: '0.875rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '1.375rem', color: '#fff', margin: '0 auto 1rem' }}>E</div>
+          <div className="app-auth-mark" style={{ marginBottom: '1rem' }}>NQ</div>
           <h1 style={{ fontWeight: 700, fontSize: '1.375rem', color: 'var(--foreground)', marginBottom: '0.375rem' }}>Sign in to Nqita</h1>
-          <p style={{ fontSize: '0.875rem', color: 'var(--muted)' }}>Use your WokSpec account or an API key.</p>
+          <p style={{ fontSize: '0.875rem', color: 'var(--muted)' }}>Use your WokSpec account or a developer API key.</p>
         </div>
 
         {/* OAuth buttons */}
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
           {[
-            { provider: 'github', label: 'Continue with GitHub', icon: '🐙' },
-            { provider: 'google', label: 'Continue with Google', icon: '🔵' },
-            { provider: 'discord', label: 'Continue with Discord', icon: '🎮' },
+            { provider: 'github', label: 'Continue with GitHub', icon: 'GH' },
+            { provider: 'google', label: 'Continue with Google', icon: 'GO' },
+            { provider: 'discord', label: 'Continue with Discord', icon: 'DC' },
           ].map(({ provider, label, icon }) => (
-            <a key={provider} href={oauthHref(provider)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'var(--background)', color: 'var(--foreground)', border: '1px solid var(--border)', borderRadius: '0.75rem', padding: '0.75rem 1rem', fontWeight: 500, fontSize: '0.9375rem', textDecoration: 'none', cursor: 'pointer', transition: 'border-color 0.15s' }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--accent)')}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
+            <a key={provider} href={oauthHref(provider)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'rgba(255,255,255,0.02)', color: 'var(--foreground)', border: '1px solid var(--border)', padding: '0.85rem 1rem', fontWeight: 500, fontSize: '0.9375rem', textDecoration: 'none', cursor: 'pointer', transition: 'border-color 0.15s, transform 0.15s' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
-              <span>{icon}</span><span>{label}</span>
+              <span style={{ width: '1.75rem', height: '1.75rem', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,214,233,0.12)', background: 'rgba(255,255,255,0.03)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em' }}>{icon}</span>
+              <span>{label}</span>
             </a>
           ))}
         </div>
@@ -86,23 +99,23 @@ export default function LoginPage() {
 
         {/* Developer API key */}
         {!showKeyForm ? (
-          <button onClick={() => setShowKeyForm(true)} style={{ background: 'transparent', border: '1px solid var(--border)', color: 'var(--muted)', borderRadius: '0.75rem', padding: '0.625rem 1rem', width: '100%', fontSize: '0.875rem', cursor: 'pointer' }}>
+          <button onClick={() => setShowKeyForm(true)} style={{ background: 'transparent', border: '1px solid var(--border)', color: 'var(--muted)', padding: '0.625rem 1rem', width: '100%', fontSize: '0.875rem', cursor: 'pointer' }}>
             Use API key (developer)
           </button>
         ) : (
           <form onSubmit={handleApiKeySubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <input type="password" value={apiKey} onChange={e => setApiKey(e.target.value)} placeholder="eral_..." autoFocus
-              style={{ background: 'var(--background)', color: 'var(--foreground)', border: `1px solid ${error ? 'rgba(239,68,68,0.6)' : 'var(--border)'}`, borderRadius: '0.75rem', padding: '0.75rem 1rem', fontSize: '0.9rem', fontFamily: 'ui-monospace, monospace', outline: 'none', width: '100%' }}
+              style={{ background: 'rgba(255,255,255,0.02)', color: 'var(--foreground)', border: `1px solid ${error ? 'rgba(239,68,68,0.6)' : 'var(--border)'}`, padding: '0.75rem 1rem', fontSize: '0.9rem', fontFamily: 'ui-monospace, monospace', outline: 'none', width: '100%' }}
               onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
               onBlur={e => (e.target.style.borderColor = error ? 'rgba(239,68,68,0.6)' : 'var(--border)')}
             />
             {error && <p style={{ fontSize: '0.8125rem', color: '#f87171', margin: 0 }}>{error}</p>}
-            <button type="submit" disabled={isSubmitting} style={{ background: isSubmitting ? 'var(--border)' : 'var(--accent)', color: '#fff', border: 'none', padding: '0.75rem', borderRadius: '0.75rem', fontWeight: 600, fontSize: '0.9375rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', width: '100%' }}>
+            <button type="submit" disabled={isSubmitting} style={{ background: isSubmitting ? 'var(--border)' : 'var(--accent)', color: '#fff', border: 'none', padding: '0.8rem', fontWeight: 600, fontSize: '0.9375rem', cursor: isSubmitting ? 'not-allowed' : 'pointer', width: '100%' }}>
               {isSubmitting ? 'Signing in…' : 'Continue with API key'}
             </button>
           </form>
         )}
       </div>
-    </div>
+    </main>
   );
 }

@@ -8,11 +8,12 @@ export const metadata: Metadata = {
 
 export default function ContributePage() {
   return (
-    <main className="site-page docs-page">
-      <section className="docs-shell docs-simple">
+    <main className="site-page public-page">
+      <section className="public-shell public-card">
+        <div className="public-mark">NQ</div>
         <h1>Contribution lives on GitHub.</h1>
-        <p>Open issues, repos, and contribution paths are all there for now.</p>
-        <div className="docs-simple__links">
+        <p>Issues, project direction, and the current contribution flow all live in the GitHub org while the site stays lightweight.</p>
+        <div className="public-links">
           <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
             github.com/ws-nqita
           </a>

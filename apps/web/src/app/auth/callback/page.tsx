@@ -24,19 +24,36 @@ export default function AuthCallbackPage() {
   }, [router]);
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--background)', color: 'var(--foreground)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '1rem' }}>
-      {status === 'processing' ? (
-        <>
-          <div style={{ width: '2rem', height: '2rem', border: '3px solid var(--border)', borderTopColor: 'var(--accent)', borderRadius: '50%', animation: 'spin 0.75s linear infinite' }} />
-          <p style={{ color: 'var(--muted)', fontSize: '0.9375rem' }}>{message}</p>
-          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-        </>
-      ) : (
-        <>
-          <p style={{ color: '#f87171', fontSize: '0.9375rem' }}>{message}</p>
-          <a href="/login" style={{ color: 'var(--accent)', fontSize: '0.875rem', textDecoration: 'underline' }}>Back to sign in</a>
-        </>
-      )}
-    </div>
+    <main className="app-auth-shell">
+      <section className="app-auth-card" style={{ textAlign: 'center' }}>
+        <div className="app-auth-mark">NQ</div>
+        <h1 className="app-auth-title">{status === 'processing' ? 'Completing sign in' : 'Sign in failed'}</h1>
+        <p className="app-auth-copy" style={{ color: status === 'processing' ? 'var(--muted)' : '#f3a5b6' }}>
+          {message}
+        </p>
+        {status === 'processing' ? (
+          <>
+            <div
+              style={{
+                width: '2rem',
+                height: '2rem',
+                margin: '18px auto 0',
+                border: '3px solid var(--border)',
+                borderTopColor: 'var(--accent)',
+                borderRadius: '50%',
+                animation: 'spin 0.75s linear infinite',
+              }}
+            />
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          </>
+        ) : (
+          <div style={{ marginTop: '22px' }}>
+            <a href="/login" style={{ color: 'var(--accent)', fontSize: '0.9rem' }}>
+              Back to sign in
+            </a>
+          </div>
+        )}
+      </section>
+    </main>
   );
 }
