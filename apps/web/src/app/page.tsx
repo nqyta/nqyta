@@ -8,6 +8,8 @@ type RoleOption =
   | 'Founder'
   | 'Pixel Artist'
   | 'Designer'
+  | 'Web3 Operator'
+  | 'Protocol Builder'
   | 'Curious Human';
 
 type WaitlistEntry = {
@@ -30,6 +32,8 @@ const roleOptions: RoleOption[] = [
   'Founder',
   'Pixel Artist',
   'Designer',
+  'Web3 Operator',
+  'Protocol Builder',
   'Curious Human',
 ];
 
@@ -39,26 +43,26 @@ const currentSprites: SpriteCard[] = [
   {
     title: 'chibi cyborg',
     src: '/nqita-sprites/current/chibi-cyborg.gif',
-    status: 'available now',
-    note: 'Feels closest to a lightweight everyday desktop companion.',
+    status: 'current shell',
+    note: 'Closest to an everyday desktop companion that still feels technically sharp.',
   },
   {
     title: 'simple pink runner',
     src: '/nqita-sprites/current/simple-cyborg.gif',
-    status: 'available now',
-    note: 'Fast silhouette. Reads clearly at tiny overlay sizes.',
+    status: 'current shell',
+    note: 'Small, readable, and ideal for persistent overlay behavior on dense screens.',
   },
   {
     title: 'cube core',
     src: '/nqita-sprites/current/cube-core.gif',
-    status: 'available now',
-    note: 'Less human, more daemon familiar. Could work for utility mode.',
+    status: 'current shell',
+    note: 'Abstract daemon energy. Good for utility mode or network-state presence.',
   },
   {
     title: 'armored girl',
     src: '/nqita-sprites/current/armored-girl.gif',
-    status: 'available now',
-    note: 'Heavier and bolder. Strong personality, less subtle on desktop.',
+    status: 'current shell',
+    note: 'Heavier silhouette for a stronger operator persona and more overt identity.',
   },
 ];
 
@@ -66,34 +70,50 @@ const plannedSprites: SpriteCard[] = [
   {
     title: 'full walk-cycle shell',
     src: '/nqita-sprites/planned/walk-cycle-south.png',
-    status: 'planned',
-    note: 'Most promising route for desktop wandering, idles, and scene transitions.',
+    status: 'planned body',
+    note: 'Best route for wandering desktop motion, idles, and room-to-room embodiment.',
   },
   {
     title: 'computer-head form',
     src: '/nqita-sprites/planned/computer-head-south.png',
-    status: 'planned',
-    note: 'A stranger, more agentic body plan if we want her to feel less mascot-like.',
+    status: 'planned body',
+    note: 'Feels stranger and more post-human. Strong fit if identity leans deeper into agenthood.',
   },
   {
     title: 'monitor-body form',
     src: '/nqita-sprites/planned/monitor-body-south.png',
-    status: 'planned',
-    note: 'Leans into workstation embodiment and terminal-origin identity.',
+    status: 'planned body',
+    note: 'Tighter link to terminal, dashboards, ledgers, and workstation-native presence.',
   },
   {
     title: 'soft chibi front',
     src: '/nqita-sprites/planned/chibi-south.png',
-    status: 'planned',
-    note: 'Cute and readable. Good fallback for broad public-facing surfaces.',
+    status: 'planned body',
+    note: 'The safest readable fallback if we need friendlier public-facing surfaces.',
   },
 ];
 
-const presenceSteps = [
-  'talk to her in your terminal',
-  'let her stay present as a local daemon',
-  'give her a visible pixel body on desktop',
-  'expand into browser, tools, and operating-system context',
+const web3Signals = [
+  {
+    label: 'wallet-adjacent operator',
+    detail: 'Built for people living between terminal tabs, dashboards, wallets, contracts, and Discord war rooms.',
+  },
+  {
+    label: 'byok and hosted path',
+    detail: 'Bring your own key for serious usage, or use the hosted path with limits while Nqita hardens.',
+  },
+  {
+    label: 'persistent identity',
+    detail: 'Not just another chat tab. The agent should stay present across surfaces and context boundaries.',
+  },
+];
+
+const stackRows = [
+  'terminal command surface',
+  'local daemon memory + state',
+  'wallet / account-aware workflows later',
+  'browser + desktop embodiment',
+  'protocol and operator tooling over time',
 ];
 
 function readStoredEntries(): WaitlistEntry[] {
@@ -127,7 +147,7 @@ export default function HomePage() {
     setSubmitted(entries.some((entry) => entry.email.toLowerCase() === email.toLowerCase()));
   }, [email]);
 
-  const progressValue = useMemo(() => Math.min(94, 34 + savedCount * 7), [savedCount]);
+  const progressValue = useMemo(() => Math.min(96, 36 + savedCount * 7), [savedCount]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -168,6 +188,7 @@ export default function HomePage() {
         <nav className="topbar__nav" aria-label="Primary">
           <a href="#waitlist-form">waitlist</a>
           <a href="#current-shells">sprites</a>
+          <a href="#web3-scope">scope</a>
           <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
             github
           </a>
@@ -176,21 +197,23 @@ export default function HomePage() {
 
       <section className="hero shell">
         <div className="hero__copy">
-          <p className="pixel-pill">pink pixel agent in progress</p>
+          <p className="pixel-pill">pink terminal agent for web3-native operators</p>
           <h1>
-            terminal first.
+            a persistent agent
             <br />
-            body still evolving.
+            for terminal, wallet,
+            <br />
+            browser, and desktop.
           </h1>
           <p className="hero__lede">
-            Nqita is a persistent AI agent that starts in the CLI and keeps expanding into your
-            desktop, browser, tools, and eventually the operating system itself. We are not locking
-            a final identity yet. We are testing bodies, motion, presence, and tone in public.
+            Nqita starts in your terminal and grows into a visible operator companion across your
+            tools. The long arc is not another dashboard. It is an embodied pink agent that can sit
+            beside your workflows across chains, contracts, wallets, tabs, and the operating system.
           </p>
 
           <div className="pixel-meter">
             <div className="pixel-meter__label">
-              <span>sprite direction</span>
+              <span>embodiment progress</span>
               <strong>{progressValue}% awake</strong>
             </div>
             <div className="pixel-meter__bar" aria-hidden="true">
@@ -198,46 +221,49 @@ export default function HomePage() {
             </div>
           </div>
 
+          <div className="hero__actions">
+            <a className="pixel-button pixel-button--primary" href="#waitlist-form">
+              join the waitlist
+            </a>
+            <a className="pixel-button pixel-button--secondary" href="#current-shells">
+              inspect candidate shells
+            </a>
+          </div>
+
           <div className="signal-row">
-            <div className="signal-tile">
-              <strong>available now</strong>
-              <p>Multiple candidate Nqitas are already on the table and visible below.</p>
-            </div>
-            <div className="signal-tile">
-              <strong>not a logo yet</strong>
-              <p>Identity is being discovered through sprite work, not a locked brand mark.</p>
-            </div>
-            <div className="signal-tile">
-              <strong>waitlist first</strong>
-              <p>Join early if you want terminal builds, sprite drops, and implementation updates.</p>
-            </div>
+            {web3Signals.map((item) => (
+              <div key={item.label} className="signal-tile">
+                <strong>{item.label}</strong>
+                <p>{item.detail}</p>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="hero__scene" aria-label="Current sprite concept scene">
-          <div className="scene-card">
+        <div className="hero__scene" aria-label="Nqita environment scene">
+          <div className="scene-card scene-card--server-room">
             <div className="scene-card__header">
-              <span>candidate shell</span>
-              <strong>hero render</strong>
+              <span>network room</span>
+              <strong>web3 operator environment</strong>
             </div>
 
-            <div className="scene-card__room">
-              <div className="scene-card__stars" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="scene-card__window" />
-              <div className="scene-card__desk" />
-              <div className="scene-card__plant" />
+            <div className="scene-card__room scene-card__room--server">
               <img
-                className="scene-card__sprite"
+                className="scene-card__backdrop"
+                src="/nqita-sprites/server-room.png"
+                alt="Pink pixel-art server room environment"
+              />
+              <img
+                className="scene-card__sprite scene-card__sprite--hero"
                 src="/nqita-sprites/hero-agent.png"
                 alt="Current Nqita sprite candidate render"
               />
-              <div className="scene-card__note scene-card__note--left">current mood: soft cyborg operator</div>
-              <div className="scene-card__note scene-card__note--right">identity still in motion</div>
+              <div className="scene-card__note scene-card__note--left">
+                candidate shell operating from the pink network corridor
+              </div>
+              <div className="scene-card__note scene-card__note--right">
+                no final logo. identity emerges through body, motion, and scene
+              </div>
             </div>
           </div>
         </div>
@@ -245,19 +271,20 @@ export default function HomePage() {
 
       <section className="shell content-grid">
         <article className="panel panel--waitlist" id="waitlist-form">
-          <div className="panel__eyebrow">join the waitlist</div>
-          <h2>Get the first builds while the body and behavior are still being shaped.</h2>
+          <div className="panel__eyebrow">join the list</div>
+          <h2>Get the early builds while the site, shell, and operator flow are still hardening.</h2>
           <p>
-            Signups are captured in this browser right now while the shared endpoint is still being
-            wired. The flow is already the right one: simple, direct, and focused on early access.
+            The current flow is intentionally simple. Sign up, get on the list, and get updates as
+            Nqita becomes more real across the CLI, desktop embodiment, and future wallet-aware
+            workflows.
           </p>
 
           {submitted ? (
             <div className="success-box" role="status" aria-live="polite">
-              <strong>slot saved.</strong>
+              <strong>slot reserved.</strong>
               <p>
-                You&apos;re on this device&apos;s local waitlist. When the shared backend lands, the
-                page flow can stay the same.
+                Your signup is saved locally on this device for now. The shared waitlist backend can
+                drop in later without changing the experience.
               </p>
             </div>
           ) : (
@@ -267,7 +294,7 @@ export default function HomePage() {
                 <input
                   type="email"
                   required
-                  placeholder="you@persistentagents.dev"
+                  placeholder="you@onchainoperator.xyz"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
@@ -290,7 +317,7 @@ export default function HomePage() {
                   checked={wantsUpdates}
                   onChange={(event) => setWantsUpdates(event.target.checked)}
                 />
-                <span>send sprite drops, terminal builds, and launch notes</span>
+                <span>send me build drops, sprite tests, protocol-adjacent updates, and launch notes</span>
               </label>
 
               <button className="pixel-button pixel-button--primary" type="submit">
@@ -300,11 +327,11 @@ export default function HomePage() {
           )}
         </article>
 
-        <article className="panel panel--presence">
-          <div className="panel__eyebrow">what we are building</div>
-          <h2>a persistent agent with a body, not just a chat box.</h2>
+        <article className="panel panel--presence" id="web3-scope">
+          <div className="panel__eyebrow">web3 scope</div>
+          <h2>terminal-native, account-aware, and eventually protocol-literate.</h2>
           <ul className="presence-list">
-            {presenceSteps.map((step) => (
+            {stackRows.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ul>
@@ -315,13 +342,31 @@ export default function HomePage() {
         </article>
       </section>
 
+      <section className="shell market-strip">
+        <article className="market-card">
+          <span>phase one</span>
+          <strong>terminal runtime</strong>
+          <p>Chat, state, daemon loop, and visible sprite coherence.</p>
+        </article>
+        <article className="market-card">
+          <span>phase two</span>
+          <strong>desktop presence</strong>
+          <p>Persistent overlay body, bubbles, reactions, and scene changes.</p>
+        </article>
+        <article className="market-card">
+          <span>phase three</span>
+          <strong>web3 operator layer</strong>
+          <p>Wallet-adjacent workflows, protocol context, and account-linked assistance.</p>
+        </article>
+      </section>
+
       <section className="shell gallery-section" id="current-shells">
         <div className="section-heading">
           <div className="panel__eyebrow">current nqitas</div>
-          <h2>these are the candidate bodies we can show right now.</h2>
+          <h2>candidate bodies we can ship and test with right now.</h2>
           <p>
-            None of these are being declared final. They are the current visual directions available
-            for testing motion, feel, and readability.
+            These are the live character directions currently available for testing motion, presence,
+            readability, and long-session desktop feel.
           </p>
         </div>
 
@@ -344,10 +389,10 @@ export default function HomePage() {
       <section className="shell gallery-section">
         <div className="section-heading">
           <div className="panel__eyebrow">planned directions</div>
-          <h2>forms we are actively experimenting with next.</h2>
+          <h2>forms we are actively pushing toward next.</h2>
           <p>
-            These are not promises. They are the branches of identity we are exploring while Nqita is
-            still becoming herself.
+            Identity is still moving. These planned bodies are where the project can become stranger,
+            stronger, and more clearly agentic.
           </p>
         </div>
 
@@ -369,22 +414,22 @@ export default function HomePage() {
 
       <section className="shell lower-grid">
         <article className="panel panel--code">
-          <div className="panel__eyebrow">runtime shape</div>
-          <h2>simple entry. ambitious destination.</h2>
+          <div className="panel__eyebrow">runtime path</div>
+          <h2>simple entry. serious destination.</h2>
           <pre>{`nqita chat
   -> local daemon
-  -> sprite state
+  -> sprite state + memory
   -> byok or hosted path
   -> browser + desktop presence
-  -> os-level integration over time`}</pre>
+  -> wallet / protocol-aware workflows later`}</pre>
         </article>
 
         <article className="panel panel--soft">
-          <div className="panel__eyebrow">design rule</div>
-          <h2>the sprite does the branding for now.</h2>
+          <div className="panel__eyebrow">identity rule</div>
+          <h2>the character is the brand right now.</h2>
           <p>
-            We are deliberately not forcing a final logo before the product has a stable body. The
-            site should feel alive through motion, scene, and candidate characters instead.
+            No locked logo, no fake final mark. The site should feel like a living pink control room
+            for an agent that is still being discovered through sprite work, behavior, and scene.
           </p>
         </article>
       </section>
@@ -394,6 +439,7 @@ export default function HomePage() {
         <div className="footer__links">
           <a href="#waitlist-form">waitlist</a>
           <a href="#current-shells">sprites</a>
+          <a href="#web3-scope">scope</a>
           <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
             ws-nqita
           </a>
