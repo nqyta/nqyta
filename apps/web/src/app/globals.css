@@ -252,6 +252,7 @@ svg {
   min-width: min(100%, 720px);
   padding: 42px 38px;
   border-radius: 28px;
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
 .hero-home__panel-glow {
@@ -271,6 +272,7 @@ svg {
   display: inline-grid;
   margin-top: 18px;
   transform-style: preserve-3d;
+  transition: transform 180ms ease;
   transform:
     translate3d(calc(var(--title-shift-x) * 0.36), calc(var(--title-shift-y) * 0.36), 0)
     rotateX(calc(var(--tilt-x) * 0.16))
@@ -327,13 +329,16 @@ svg {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.84),
     0 20px 34px rgba(95, 60, 76, 0.08);
-  transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .hero-home__icon-button:hover {
   transform: translateY(-2px);
   border-color: var(--home-line-strong);
   background: rgba(255, 255, 255, 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 24px 36px rgba(95, 60, 76, 0.11);
 }
 
 .hero-home__icon-button--discord {
@@ -366,13 +371,16 @@ svg {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.84),
     0 20px 34px rgba(95, 60, 76, 0.08);
-  transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .hero-home__text-button:hover {
   transform: translateY(-2px);
   border-color: rgba(214, 177, 195, 0.9);
   background: rgba(255, 255, 255, 0.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 24px 36px rgba(95, 60, 76, 0.11);
 }
 
 .hero-home__text-button--contact {
@@ -429,11 +437,11 @@ svg {
   text-transform: lowercase;
 }
 
-.sprite-gallery {
+.sprite-feature {
   display: grid;
-  grid-template-columns: minmax(120px, 0.72fr) minmax(0, 1.4fr) minmax(120px, 0.72fr);
+  grid-template-columns: 92px minmax(0, 1fr) 92px;
   gap: 18px;
-  align-items: stretch;
+  align-items: center;
   margin-bottom: 18px;
 }
 
@@ -449,20 +457,31 @@ svg {
     0 22px 40px rgba(95, 60, 76, 0.08);
 }
 
-.sprite-card--side {
+.sprite-card--featured {
+  padding: 14px;
+}
+
+.sprite-card--candidate {
   overflow: hidden;
   padding: 0;
   cursor: pointer;
-  transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
-.sprite-card--side:hover {
+.sprite-card--candidate:hover {
   transform: translateY(-3px);
   border-color: rgba(214, 177, 195, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    0 24px 42px rgba(95, 60, 76, 0.12);
 }
 
-.sprite-card--featured {
-  padding: 14px;
+.sprite-card--candidate-active {
+  border-color: rgba(214, 177, 195, 0.98);
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 26px 46px rgba(95, 60, 76, 0.14);
 }
 
 .sprite-card__glass {
@@ -489,9 +508,15 @@ svg {
   filter: drop-shadow(0 18px 22px rgba(70, 41, 55, 0.14));
 }
 
+.sprite-card__image--candidate {
+  aspect-ratio: 1 / 1;
+  padding: 18px;
+  filter: drop-shadow(0 14px 18px rgba(70, 41, 55, 0.14));
+}
+
 .sprite-viewer__panel {
   position: relative;
-  min-height: 620px;
+  min-height: 430px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 28px;
@@ -506,7 +531,7 @@ svg {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(66%, 390px);
+  width: min(52%, 280px);
   transform:
     translate(-50%, -50%)
     translate3d(calc(var(--scene-shift-x) * 0.36), calc(var(--scene-shift-y) * 0.36), 60px)
@@ -517,14 +542,13 @@ svg {
     drop-shadow(0 14px 0 rgba(255, 255, 255, 0.54))
     drop-shadow(0 30px 26px rgba(70, 41, 55, 0.18));
   transition: transform 180ms ease, opacity 180ms ease;
-  animation: spriteFloat 3.8s ease-in-out infinite;
 }
 
 .sprite-module__cta {
   display: grid;
   justify-items: center;
   gap: 12px;
-  padding: 18px 18px 6px;
+  padding: 14px 18px 6px;
   text-align: center;
 }
 
@@ -533,6 +557,33 @@ svg {
   color: var(--home-ink);
   font-size: 0.72rem;
   line-height: 1.8;
+}
+
+.sprite-feature__nav {
+  min-height: 72px;
+  border: 1px solid var(--glass-stroke);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--home-ink);
+  cursor: pointer;
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 18px 30px rgba(95, 60, 76, 0.08);
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.sprite-feature__nav:hover {
+  transform: translateY(-2px);
+  border-color: rgba(214, 177, 195, 0.95);
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.sprite-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .docs-page {
@@ -548,41 +599,26 @@ svg {
   text-align: center;
 }
 
-@keyframes spriteFloat {
-  0%,
-  100% {
-    transform:
-      translate(-50%, -50%)
-      translate3d(calc(var(--scene-shift-x) * 0.36), calc(var(--scene-shift-y) * 0.36), 60px)
-      rotateX(calc(var(--tilt-x) * 0.05))
-      rotateY(calc(var(--tilt-y) * 0.06));
-  }
-  50% {
-    transform:
-      translate(-50%, calc(-50% - 8px))
-      translate3d(calc(var(--scene-shift-x) * 0.36), calc(var(--scene-shift-y) * 0.36), 60px)
-      rotateX(calc(var(--tilt-x) * 0.05))
-      rotateY(calc(var(--tilt-y) * 0.06));
-  }
-}
-
 @media (max-width: 900px) {
-  .sprite-gallery {
+  .sprite-feature {
     grid-template-columns: 1fr;
   }
 
-  .sprite-card--side {
-    min-height: 240px;
+  .sprite-feature__nav {
+    min-height: 58px;
   }
 
   .sprite-viewer__panel {
-    min-height: 540px;
+    min-height: 380px;
   }
 
   .sprite-viewer__sprite {
-    width: min(62%, 270px);
+    width: min(58%, 240px);
   }
-
+ 
+  .sprite-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -631,15 +667,16 @@ svg {
   }
 
   .sprite-viewer__panel {
-    min-height: 430px;
-  }
-
-  .sprite-viewer__pedestal {
-    width: 220px;
+    min-height: 320px;
   }
 
   .sprite-viewer__sprite {
-    width: min(66%, 200px);
+    width: min(64%, 200px);
+  }
+
+  .sprite-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
 }

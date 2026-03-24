@@ -131,10 +131,9 @@ export default function HomePage() {
         </h2>
 
         <div className="sprite-module sprite-module--single">
-          <div className="sprite-gallery">
-            <button className="sprite-card sprite-card--side" type="button" onClick={() => go(-1)} aria-label="Previous sprite">
-              <span className="sprite-card__glass" aria-hidden="true" />
-              <img className="sprite-card__image sprite-card__image--side" src={previousSprite.src} alt="" aria-hidden="true" />
+          <div className="sprite-feature">
+            <button className="sprite-feature__nav" type="button" onClick={() => go(-1)} aria-label="Previous sprite">
+              prev
             </button>
 
             <div className="sprite-card sprite-card--featured">
@@ -143,11 +142,30 @@ export default function HomePage() {
               </div>
             </div>
 
-            <button className="sprite-card sprite-card--side" type="button" onClick={() => go(1)} aria-label="Next sprite">
-              <span className="sprite-card__glass" aria-hidden="true" />
-              <img className="sprite-card__image sprite-card__image--side" src={nextSprite.src} alt="" aria-hidden="true" />
+            <button className="sprite-feature__nav" type="button" onClick={() => go(1)} aria-label="Next sprite">
+              next
             </button>
           </div>
+
+          <div className="sprite-grid" role="list" aria-label="Sprite candidates">
+            {spriteOptions.map((sprite, index) => {
+              const isActive = index === activeIndex;
+
+              return (
+                <button
+                  key={sprite.id}
+                  className={`sprite-card sprite-card--candidate${isActive ? ' sprite-card--candidate-active' : ''}`}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-pressed={isActive}
+                >
+                  <span className="sprite-card__glass" aria-hidden="true" />
+                  <img className="sprite-card__image sprite-card__image--candidate" src={sprite.src} alt={sprite.alt} />
+                </button>
+              );
+            })}
+          </div>
+
           <div className="sprite-module__cta">
             <p>submit your own!</p>
             <p>or work with us</p>
