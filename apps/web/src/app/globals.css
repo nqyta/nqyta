@@ -183,6 +183,35 @@ img {
   backdrop-filter: blur(16px);
 }
 
+.hero-preview--tank,
+.simple-sprite-card__media--tank {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-preview--tank::before,
+.simple-sprite-card__media--tank::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.08) 26%, rgba(255, 87, 170, 0.08) 76%, rgba(255, 87, 170, 0.18) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.3), transparent 16%, transparent 84%, rgba(255, 255, 255, 0.18));
+  pointer-events: none;
+}
+
+.hero-preview--tank::after,
+.simple-sprite-card__media--tank::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22%;
+  background: linear-gradient(180deg, rgba(255, 116, 189, 0), rgba(255, 116, 189, 0.2) 55%, rgba(255, 82, 167, 0.34));
+  pointer-events: none;
+}
+
 .simple-hero__copy,
 .simple-card {
   padding: 28px;
@@ -299,6 +328,8 @@ img {
 }
 
 .hero-preview__sprite {
+  position: relative;
+  z-index: 1;
   width: min(100%, 360px);
   image-rendering: pixelated;
   filter: drop-shadow(0 24px 34px rgba(182, 47, 115, 0.18));
@@ -405,9 +436,81 @@ img {
 }
 
 .simple-sprite-card__media img {
+  position: relative;
+  z-index: 1;
   width: 110px;
   height: 110px;
   image-rendering: pixelated;
+}
+
+.tank-bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tank-bubbles span {
+  position: absolute;
+  bottom: -12%;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.14) 72%);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  opacity: 0.75;
+  animation: bubble-rise 5.6s linear infinite;
+}
+
+.tank-bubbles span:nth-child(1) {
+  left: 16%;
+  width: 10px;
+  height: 10px;
+  animation-delay: 0s;
+}
+
+.tank-bubbles span:nth-child(2) {
+  left: 34%;
+  width: 16px;
+  height: 16px;
+  animation-delay: 1.4s;
+}
+
+.tank-bubbles span:nth-child(3) {
+  right: 22%;
+  width: 12px;
+  height: 12px;
+  animation-delay: 0.8s;
+}
+
+.tank-bubbles span:nth-child(4) {
+  right: 10%;
+  width: 9px;
+  height: 9px;
+  animation-delay: 2.2s;
+}
+
+.tank-bubbles--small span {
+  animation-duration: 4.8s;
+}
+
+.tank-bubbles--small span:nth-child(4) {
+  display: none;
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.84);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translate3d(12px, -220px, 0) scale(1.08);
+    opacity: 0;
+  }
 }
 
 @media (max-width: 980px) {

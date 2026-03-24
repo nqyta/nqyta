@@ -108,9 +108,9 @@ export default function HomePage() {
 
       <section className="simple-shell simple-hero">
         <div className="simple-hero__copy">
-          <p className="simple-pill">nick-ee-tah</p>
-          <h1>pink terminal companion</h1>
-          <p className="simple-lede">join the waitlist. pick the sprite direction.</p>
+          <p className="simple-pill">Nqita</p>
+          <h1>Nqita</h1>
+          <p className="simple-lede">Waitlist. Potential sprites.</p>
 
           <div className="simple-actions">
             <a className="simple-button simple-button--primary" href="#waitlist-form">
@@ -127,16 +127,22 @@ export default function HomePage() {
               <strong>{savedCount.toString().padStart(2, '0')}</strong>
             </div>
             <div className="simple-stat">
-              <span>current focus</span>
-              <strong>waitlist + sprite direction</strong>
+              <span>needed</span>
+              <strong>artists, animators, devs</strong>
             </div>
           </div>
         </div>
 
         <div className="simple-hero__art">
-          <div className="hero-preview">
+          <div className="hero-preview hero-preview--tank">
             <div className="hero-preview__label">
               sprite {String(activeIndex + 1).padStart(2, '0')} / {String(spriteOptions.length).padStart(2, '0')}
+            </div>
+            <div className="tank-bubbles" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
             </div>
             <img
               key={activeSprite.src}
@@ -153,7 +159,7 @@ export default function HomePage() {
         <article className="simple-card" id="waitlist-form">
           <div className="simple-card__eyebrow">waitlist</div>
           <h2>early access</h2>
-          <p>build drops, updates, sprite tests.</p>
+          <p>updates, builds, drops.</p>
 
           {submitted ? (
             <div className="simple-success" role="status" aria-live="polite">
@@ -201,12 +207,12 @@ export default function HomePage() {
         </article>
 
         <article className="simple-card simple-card--soft">
-          <div className="simple-card__eyebrow">live picker</div>
-          <h2>8 animated candidates</h2>
+          <div className="simple-card__eyebrow">help wanted</div>
+          <h2>artists, animators, devs</h2>
           <ul className="simple-list">
-            <li>all looping</li>
-            <li>auto-rotating</li>
-            <li>tap to switch</li>
+            <li>pixel art</li>
+            <li>animation</li>
+            <li>runtime</li>
           </ul>
         </article>
       </section>
@@ -226,7 +232,12 @@ export default function HomePage() {
               onClick={() => setActiveIndex(index)}
               aria-label={`View ${sprite.name}`}
             >
-              <div className="simple-sprite-card__media">
+              <div className="simple-sprite-card__media simple-sprite-card__media--tank">
+                <div className="tank-bubbles tank-bubbles--small" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
                 <img src={sprite.src} alt="" />
               </div>
             </button>
