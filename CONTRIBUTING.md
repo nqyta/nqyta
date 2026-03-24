@@ -2,6 +2,8 @@
 
 Nqita is an open project and there are several distinct ways to contribute. You don't need to be a generalist — contributions from pixel artists, systems engineers, AI researchers, and UX designers are all needed and valued equally.
 
+The public recruitment page is live at `https://nqita.wokspec.org/contribute`. If you are sending people into the project, start there and then send them here for the detailed repo workflow.
+
 Read this document, pick the section that fits you, and dive in. The [Discord](https://discord.gg/juunCaGpTW) is the best place to discuss contributions before starting.
 
 ---
@@ -77,7 +79,7 @@ The overlay and daemon are separate processes connected by IPC. See [ARCHITECTUR
 ### Dev setup
 
 ```bash
-git clone https://github.com/nqita/nqita
+git clone https://github.com/ws-nqita/nqita
 cd nqita/platform
 
 # Platform API (Cloudflare Worker)
@@ -106,7 +108,7 @@ npm test
 
 ### Good first issues
 
-Look for issues tagged `good-first-issue` on [GitHub](https://github.com/nqita). Good entry points:
+Look for issues tagged `good-first-issue` or `help-wanted` on [GitHub](https://github.com/ws-nqita).
 - Implementing cooldown logic in `src/curiosity/cooldown.ts`
 - Writing unit tests for the probability model
 - Implementing the IPC message handler stubs
@@ -217,6 +219,20 @@ Nqita's interaction design is governed by a central philosophy: **present but no
 - **Full View panel** — organizing logs, task queue, memory view, and browser session into a coherent layout
 - **Onboarding** — first-run experience; how does Nqita introduce herself?
 - **Mode switcher** — how should mode transitions be communicated visually?
+
+---
+
+## What We Need Right Now
+
+If you are deciding where to jump in, these are the most valuable contribution lanes right now:
+
+- **Artists:** core sprite sheets, emotional reactions, desk scenes, and bubble styling
+- **CLI / runtime devs:** `ws-nqita/nqita-cli`, daemon protocol, Groq integration, BYOK routing, local memory
+- **Platform engineers:** desktop overlay experiments on macOS, Windows, and Linux
+- **Frontend contributors:** the public site, contribution onboarding, docs surfacing, and launch flow
+- **Designers:** interaction restraint, motion language, onboarding, and full-view layouts
+
+If you only have a few hours, a small concrete contribution is still useful. Draft PRs are welcome.
 
 ---
 

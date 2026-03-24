@@ -448,13 +448,59 @@ textarea {
 }
 
 .content-grid,
-.lower-grid {
+.lower-grid,
+.recruit-grid,
+.contribute-grid {
   position: relative;
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
   padding: 1rem 0;
+}
+
+.contribute-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.contribute-hero {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 0 1rem;
+}
+
+.contribute-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  line-height: 1.3;
+  text-transform: lowercase;
+  font-size: clamp(1.8rem, 3.4vw, 3rem);
+}
+
+.contributor-list {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+}
+
+.contributor-card {
+  padding: 0.95rem 1rem;
+  border: 2px solid rgba(217, 107, 157, 0.55);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.contributor-card strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  text-transform: lowercase;
+}
+
+.contributor-card p {
+  margin: 0;
+  color: var(--foreground-soft);
+  line-height: 1.6;
 }
 
 .panel {
@@ -576,7 +622,9 @@ textarea {
 @media (max-width: 920px) {
   .hero,
   .content-grid,
-  .lower-grid {
+  .lower-grid,
+  .recruit-grid,
+  .contribute-grid {
     grid-template-columns: 1fr;
   }
 

@@ -299,16 +299,16 @@ export default function DocsPage() {
           {/* ── Overview ── */}
           <section id="overview">
             <h1 style={{ fontWeight: 800, fontSize: '1.875rem', letterSpacing: '-0.03em', marginBottom: '0.75rem' }}>
-              Nikita API Reference
+              Nqita API Reference
             </h1>
             <p style={S.muted}>
-              The Nikita API is a Cloudflare Worker at <code style={S.inlineCode}>https://nikita.wokspec.org/api</code>.
+              The Nqita API is a Cloudflare Worker at <code style={S.inlineCode}>https://nqita.wokspec.org/api</code>.
               It provides conversational AI, content generation, content analysis, Studio prompt engineering, and
-              API key management — all secured by WokSpec JWTs or Nikita API keys.
+              API key management — all secured by WokSpec JWTs or Nqita API keys.
             </p>
             <div style={{ ...S.card, padding: '1.25rem' }}>
               <div style={{ fontSize: '0.825rem', color: 'var(--muted)', marginBottom: '0.75rem', fontWeight: 600 }}>Base URL</div>
-              <code style={{ ...S.inlineCode, fontSize: '0.875rem' }}>https://nikita.wokspec.org/api</code>
+              <code style={{ ...S.inlineCode, fontSize: '0.875rem' }}>https://nqita.wokspec.org/api</code>
             </div>
 
             <h3 style={S.h3}>All endpoints</h3>
@@ -338,7 +338,7 @@ export default function DocsPage() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.875rem', marginBottom: '1.5rem' }}>
               {[
                 { title: 'WokSpec JWT', desc: 'For WokSpec users. Obtained via OAuth sign-in. Short-lived (15 min), auto-refreshed.', prefix: 'eyJ…' },
-                { title: 'Nikita API Key', desc: 'For embedding or server-to-server use. Create one on the Keys page. Long-lived.', prefix: 'eral_…' },
+                { title: 'Nqita API Key', desc: 'For embedding or server-to-server use. Create one on the Keys page. Long-lived.', prefix: 'eral_…' },
               ].map(({ title, desc, prefix }) => (
                 <div key={title} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '0.75rem', padding: '1.125rem' }}>
                   <div style={{ fontWeight: 600, marginBottom: '0.375rem' }}>{title}</div>
@@ -370,7 +370,7 @@ Content-Type: application/json`}
               { name: 'source',    type: 'string',  required: false, desc: 'Origin product identifier (e.g. "wokhei", "studio", "widget")' },
             ]} />
             <CodeBlock lang="bash">
-{`curl https://nikita.wokspec.org/api/v1/chat \\
+{`curl https://nqita.wokspec.org/api/v1/chat \\
   -H "Authorization: Bearer eral_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -425,7 +425,7 @@ Content-Type: application/json`}
               { name: 'product', type: "'woksite' | 'studio' | 'wokhei' | 'api' | 'autiladus'", required: false, desc: 'Tailor output for a specific WokSpec product' },
             ]} />
             <CodeBlock lang="bash">
-{`curl https://nikita.wokspec.org/api/v1/generate \\
+{`curl https://nqita.wokspec.org/api/v1/generate \\
   -H "Authorization: Bearer eral_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -463,7 +463,7 @@ Content-Type: application/json`}
               { name: 'focus',   type: 'string',  required: false, desc: 'Specific aspect to focus on (max 500 chars)' },
             ]} />
             <CodeBlock lang="bash">
-{`curl https://nikita.wokspec.org/api/v1/analyze \\
+{`curl https://nqita.wokspec.org/api/v1/analyze \\
   -H "Authorization: Bearer eral_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -501,7 +501,7 @@ Content-Type: application/json`}
               { name: 'count',       type: 'integer', required: false, desc: 'Number of prompt variations (1–5)', default: '1' },
             ]} />
             <CodeBlock lang="bash">
-{`curl https://nikita.wokspec.org/api/v1/studio/prompt \\
+{`curl https://nqita.wokspec.org/api/v1/studio/prompt \\
   -H "Authorization: Bearer eral_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -582,9 +582,9 @@ Content-Type: application/json`}
             <h3 style={S.h3}>Script tag (recommended)</h3>
             <CodeBlock lang="html">
 {`<script
-  src="https://nikita.wokspec.org/api/widget.js"
+  src="https://nqita.wokspec.org/api/widget.js"
   data-nikita-key="eral_your_key_here"
-  data-nikita-name="Nikita"
+  data-nikita-name="Nqita"
   data-nikita-color="#7c3aed"
   data-nikita-position="bottom-right"
   data-nikita-greeting="Hi! How can I help?"
@@ -593,11 +593,11 @@ Content-Type: application/json`}
 
             <h3 style={S.h3}>Data attributes</h3>
             <ParamsTable params={[
-              { name: 'data-nikita-key',      type: 'string', required: true,  desc: 'Your Nikita API key' },
-              { name: 'data-nikita-name',     type: 'string', required: false, desc: 'Display name shown in the widget header', default: 'Nikita' },
+              { name: 'data-nikita-key',      type: 'string', required: true,  desc: 'Your Nqita API key' },
+              { name: 'data-nikita-name',     type: 'string', required: false, desc: 'Display name shown in the widget header', default: 'Nqita' },
               { name: 'data-nikita-color',    type: 'string', required: false, desc: 'Brand color (hex)', default: '#7c3aed' },
               { name: 'data-nikita-position', type: "'bottom-right' | 'bottom-left'", required: false, desc: 'Widget position on screen', default: 'bottom-right' },
-              { name: 'data-nikita-greeting', type: 'string', required: false, desc: 'Initial message shown in the chat', default: "Hi! I'm Nikita…" },
+              { name: 'data-nikita-greeting', type: 'string', required: false, desc: 'Initial message shown in the chat', default: "Hi! I'm Nqita…" },
               { name: 'data-nikita-placeholder', type: 'string', required: false, desc: 'Input placeholder text', default: 'Ask me anything...' },
             ]} />
 
@@ -609,7 +609,7 @@ Content-Type: application/json`}
 {`// Init programmatically (skips data-attribute auto-init)
 window.Nikita.init({
   apiKey:    'eral_...',
-  name:      'Nikita',
+  name:      'Nqita',
   color:     '#7c3aed',
   position:  'bottom-right',
   greeting:  'Hi! How can I help?',

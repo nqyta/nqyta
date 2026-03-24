@@ -126,7 +126,7 @@ export default function KeysPage() {
             <p style={{ marginTop: '0.875rem', fontSize: '0.8125rem', color: 'var(--muted)' }}>
               Embed on your site:
             </p>
-            <pre style={{ background: 'var(--background)', border: '1px solid var(--border)', borderRadius: '0.5rem', padding: '0.75rem', fontSize: '0.78rem', fontFamily: 'ui-monospace, monospace', overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-word', marginTop: '0.375rem' }}>{`<script src="https://nikita.wokspec.org/api/widget.js"\n        data-nikita-key="${newKeyValue}"\n        data-nikita-name="Nikita"\n        data-nikita-position="bottom-right">\n</script>`}</pre>
+            <pre style={{ background: 'var(--background)', border: '1px solid var(--border)', borderRadius: '0.5rem', padding: '0.75rem', fontSize: '0.78rem', fontFamily: 'ui-monospace, monospace', overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-word', marginTop: '0.375rem' }}>{`<script src="https://nqita.wokspec.org/api/widget.js"\n        data-nikita-key="${newKeyValue}"\n        data-nikita-name="Nqita"\n        data-nikita-position="bottom-right">\n</script>`}</pre>
             <button style={{ ...btn('ghost'), marginTop: '0.75rem', fontSize: '0.8125rem' }} onClick={() => setNewKeyValue(null)}>Dismiss</button>
           </div>
         )}
@@ -190,7 +190,7 @@ export default function KeysPage() {
               <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>Widget embed</span> — add the script tag to your HTML, pass your key as <code style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.8rem', background: 'var(--background)', padding: '0.1em 0.35em', borderRadius: '4px' }}>data-nikita-key</code>
             </div>
             <div>
-              <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>Direct API</span> — send <code style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.8rem', background: 'var(--background)', padding: '0.1em 0.35em', borderRadius: '4px' }}>Authorization: Bearer eral_…</code> to <code style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.8rem', background: 'var(--background)', padding: '0.1em 0.35em', borderRadius: '4px' }}>nikita.wokspec.org/api/v1/chat</code>
+              <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>Direct API</span> — send <code style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.8rem', background: 'var(--background)', padding: '0.1em 0.35em', borderRadius: '4px' }}>Authorization: Bearer eral_…</code> to <code style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.8rem', background: 'var(--background)', padding: '0.1em 0.35em', borderRadius: '4px' }}>nqita.wokspec.org/api/v1/chat</code>
             </div>
             <div>
               <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>Rate limits</span> — 30 requests/min per key on the free tier

@@ -2,7 +2,13 @@
 
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 
-type RoleOption = 'Developer' | 'Founder' | 'Designer' | 'Curious Human';
+type RoleOption =
+  | 'Pixel Artist'
+  | 'Animator'
+  | 'Systems Dev'
+  | 'Frontend Dev'
+  | 'Designer'
+  | 'Curious Human';
 
 type WaitlistEntry = {
   email: string;
@@ -11,12 +17,34 @@ type WaitlistEntry = {
   createdAt: string;
 };
 
-const roleOptions: RoleOption[] = ['Developer', 'Founder', 'Designer', 'Curious Human'];
+const roleOptions: RoleOption[] = [
+  'Pixel Artist',
+  'Animator',
+  'Systems Dev',
+  'Frontend Dev',
+  'Designer',
+  'Curious Human',
+];
 
 const proofPoints = [
   'Pixel companion energy, built to live on your desktop instead of another tab.',
   'Privacy-first by default, with local-first memory and calm ambient behavior.',
-  'Fast setup across the WokSpec universe, with browser and API touchpoints already underway.',
+  'Open-source by intent, with clear workstreams for artists, platform engineers, and UX builders.',
+];
+
+const contributorTracks = [
+  {
+    label: 'pixel art',
+    detail: 'Idle loops, walk cycles, reactions, desk scenes, and emotional range.',
+  },
+  {
+    label: 'runtime dev',
+    detail: 'CLI, daemon, Groq routing, memory, tool execution, and local orchestration.',
+  },
+  {
+    label: 'overlay / ux',
+    detail: 'Desktop embodiment, bubble design, onboarding, and full-view interaction.',
+  },
 ];
 
 const unlocks = [
@@ -104,6 +132,7 @@ export default function HomePage() {
         </a>
 
         <nav className="topbar__nav" aria-label="Primary">
+          <a href="/contribute">Contribute</a>
           <a href="/docs">Docs</a>
           <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
             ws-nqita
@@ -121,15 +150,16 @@ export default function HomePage() {
           </h1>
           <p className="hero__lede">
             Nqita is becoming an ambient desktop companion with sprite moods, soft autonomy, and
-            game-like charm. Join the waitlist for early builds at <strong>nqita.wokspec.org</strong>.
+            game-like charm. We are actively recruiting pixel artists, systems developers, and UX
+            contributors while early builds come together at <strong>nqita.wokspec.org</strong>.
           </p>
 
           <div className="hero__actions">
             <a className="pixel-button pixel-button--primary" href="#waitlist-form">
               Join the waitlist
             </a>
-            <a className="pixel-button pixel-button--secondary" href="/docs">
-              Peek at docs
+            <a className="pixel-button pixel-button--secondary" href="/contribute">
+              Help build Nqita
             </a>
           </div>
 
@@ -260,8 +290,9 @@ export default function HomePage() {
             presence. The web layer is there to handle docs, onboarding, keys, and launch access.
           </p>
           <p>
-            That means the waitlist should feel playful, but still clean enough to convert founders,
-            builders, and artists who want early access.
+            That means the project needs more than one kind of contributor: pixel artists to define
+            her emotional range, systems engineers to build her runtime, and UX people to make the
+            embodiment feel intentional.
           </p>
         </article>
 
@@ -277,9 +308,53 @@ export default function HomePage() {
         </article>
       </section>
 
+      <section className="shell recruit-grid">
+        <article className="panel panel--soft">
+          <div className="panel__eyebrow">open source call</div>
+          <h2>We need artists, devs, and people with taste.</h2>
+          <p>
+            Nqita only works if the visual identity, runtime behavior, and desktop embodiment all land
+            together. This is not just a coding project. It needs sprite craft, systems work, motion,
+            interaction design, and strong product judgment.
+          </p>
+          <div className="contributor-list">
+            {contributorTracks.map((track) => (
+              <div key={track.label} className="contributor-card">
+                <strong>{track.label}</strong>
+                <p>{track.detail}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="panel">
+          <div className="panel__eyebrow">where to start</div>
+          <h2>Join where your craft matters most.</h2>
+          <ul className="proof-list">
+            <li>Artists: idle loops, walk cycles, expressions, desk scenes, and bubble styling.</li>
+            <li>Developers: CLI, daemon, Groq-first provider flow, overlay runtime, and local memory.</li>
+            <li>Designers and product minds: onboarding, calm interaction patterns, and sprite-to-terminal coherence.</li>
+          </ul>
+          <div className="hero__actions">
+            <a className="pixel-button pixel-button--primary" href="/contribute">
+              Read contribution guide
+            </a>
+            <a
+              className="pixel-button pixel-button--secondary"
+              href="https://github.com/ws-nqita"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open GitHub
+            </a>
+          </div>
+        </article>
+      </section>
+
       <footer className="footer shell">
         <span>nqita.wokspec.org</span>
         <div className="footer__links">
+          <a href="/contribute">Contribute</a>
           <a href="/docs">Docs</a>
           <a href="/login">Login</a>
           <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">

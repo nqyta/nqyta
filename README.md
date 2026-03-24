@@ -1,7 +1,7 @@
 # Nqita
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-pink.svg)](./LICENSE)
-[![Status: Active Development](https://img.shields.io/badge/status-active%20development-blueviolet.svg)](https://github.com/nqyta)
+[![Status: Active Development](https://img.shields.io/badge/status-active%20development-blueviolet.svg)](https://github.com/ws-nqita)
 
 **Nqita lives on your computer.**
 
@@ -9,9 +9,9 @@ She's not an app window. She's not a chatbot in a tab. She's a pink pixel sprite
 
 When the system isn't running: *Nqita is stuck in the void.* That's not a bug. That's the lore.
 
-> 💬 [Discord](https://discord.gg/juunCaGpTW) · 🐙 [GitHub](https://github.com/nqyta)
+> 💬 [Discord](https://discord.gg/juunCaGpTW) · 🐙 [GitHub](https://github.com/ws-nqita)
 >
-> **Note:** The Nqita web presence is currently offline and being rebuilt.
+> **Note:** The public web presence is live at [nqita.wokspec.org](https://nqita.wokspec.org) and the contribution call is live at [nqita.wokspec.org/contribute](https://nqita.wokspec.org/contribute).
 
 ---
 
@@ -119,10 +119,10 @@ You can always see what she's doing. **Full View Mode** exposes her terminal, ag
 
 ## Getting Started
 
-> 🚧 **Nqita is in active development and not yet installable.**
+> 🚧 **Nqita is in active development and not yet installable as the full desktop companion.**
 >
-> The API platform and browser extension are live. The desktop sprite layer is under construction.
-> Watch [github.com/nqyta](https://github.com/nqyta) for release announcements.
+> The web presence and CLI prototype are live. The native desktop sprite layer is still under construction.
+> Watch [github.com/ws-nqita](https://github.com/ws-nqita) for releases and contribution entry points.
 
 Platform API (Cloudflare Worker):
 
@@ -146,6 +146,14 @@ npm run dev   # loads unpacked in browser (Chrome/Firefox/Edge)
 
 Nqita is a collaborative project. Different skills are needed and all are valued.
 
+We are actively looking for:
+
+- pixel artists and animators
+- systems and platform engineers
+- frontend and CLI contributors
+- UX / product designers
+- testers who can help us shape desktop behavior on real machines
+
 ### 🎨 Pixel Artists & Animators
 We need sprites, walk cycles, expressions, reaction animations, and idle loops. If you draw pixel art, Nqita needs you. See [SPRITE_SYSTEM.md](./docs/SPRITE_SYSTEM.md) for spec and format requirements.
 
@@ -162,6 +170,7 @@ Personality, response quality, memory, and consistency. Making Nqita feel cohere
 Bubble design, mini browser interaction, Full View layout. The philosophy: present but not annoying, useful but not intrusive.
 
 Read [CONTRIBUTING.md](./CONTRIBUTING.md) for the full guide.
+The public recruitment page is [nqita.wokspec.org/contribute](https://nqita.wokspec.org/contribute).
 
 ---
 
