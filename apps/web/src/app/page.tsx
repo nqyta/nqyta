@@ -116,6 +116,17 @@ const stackRows = [
   'protocol and operator tooling over time',
 ];
 
+const tickerItems = [
+  'daemon awake',
+  'sprite candidates live',
+  'pink network room online',
+  'wallet-aware workflows planned',
+  'desktop shell under construction',
+  'byok path supported',
+  'hosted path with limits',
+  'identity still evolving',
+];
+
 function readStoredEntries(): WaitlistEntry[] {
   if (typeof window === 'undefined') {
     return [];
@@ -178,6 +189,15 @@ export default function HomePage() {
       <div className="waitlist-grid" aria-hidden="true" />
       <div className="sky-glow sky-glow--one" aria-hidden="true" />
       <div className="sky-glow sky-glow--two" aria-hidden="true" />
+      <div className="ambient-sprite ambient-sprite--one" aria-hidden="true">
+        <img src="/nqita-sprites/current/chibi-cyborg.gif" alt="" />
+      </div>
+      <div className="ambient-sprite ambient-sprite--two" aria-hidden="true">
+        <img src="/nqita-sprites/current/simple-cyborg.gif" alt="" />
+      </div>
+      <div className="ambient-sprite ambient-sprite--three" aria-hidden="true">
+        <img src="/nqita-sprites/current/cube-core.gif" alt="" />
+      </div>
 
       <header className="topbar shell">
         <a className="wordmark" href="#waitlist-form">
@@ -194,6 +214,16 @@ export default function HomePage() {
           </a>
         </nav>
       </header>
+
+      <section className="ticker-shell shell" aria-label="Live status ribbon">
+        <div className="ticker">
+          <div className="ticker__track">
+            {[...tickerItems, ...tickerItems].map((item, index) => (
+              <span key={`${item}-${index}`}>{item}</span>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="hero shell">
         <div className="hero__copy">
@@ -253,11 +283,28 @@ export default function HomePage() {
                 src="/nqita-sprites/server-room.png"
                 alt="Pink pixel-art server room environment"
               />
+              <div className="scene-card__scanlines" aria-hidden="true" />
+              <div className="scene-card__beams" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="scene-card__status-orbs" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
               <img
                 className="scene-card__sprite scene-card__sprite--hero"
                 src="/nqita-sprites/hero-agent.png"
                 alt="Current Nqita sprite candidate render"
               />
+              <div className="scene-card__sprite-ghost scene-card__sprite-ghost--one" aria-hidden="true">
+                <img src="/nqita-sprites/current/chibi-cyborg.gif" alt="" />
+              </div>
+              <div className="scene-card__sprite-ghost scene-card__sprite-ghost--two" aria-hidden="true">
+                <img src="/nqita-sprites/current/simple-cyborg.gif" alt="" />
+              </div>
               <div className="scene-card__note scene-card__note--left">
                 candidate shell operating from the pink network corridor
               </div>
@@ -357,6 +404,21 @@ export default function HomePage() {
           <span>phase three</span>
           <strong>web3 operator layer</strong>
           <p>Wallet-adjacent workflows, protocol context, and account-linked assistance.</p>
+        </article>
+      </section>
+
+      <section className="shell sensation-strip" aria-label="Nqita sensory feed">
+        <article className="sensation-card">
+          <span>presence</span>
+          <strong>animated room, living shell, visible agent state</strong>
+        </article>
+        <article className="sensation-card">
+          <span>motion</span>
+          <strong>floating echoes, drift, pulse, scanlines, and sprite rhythm</strong>
+        </article>
+        <article className="sensation-card">
+          <span>tone</span>
+          <strong>pink control room energy instead of a generic saas landing page</strong>
         </article>
       </section>
 
