@@ -1,12 +1,7 @@
 'use client';
 
 import { FormEvent, useEffect, useState } from 'react';
-import {
-  currentSprites,
-  plannedSprites,
-  roleOptions,
-  type RoleOption,
-} from '../content/site';
+import { roleOptions, spriteOptions, type RoleOption } from '../content/site';
 
 type WaitlistEntry = {
   email: string;
@@ -41,12 +36,31 @@ export default function HomePage() {
   const [wantsUpdates, setWantsUpdates] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [savedCount, setSavedCount] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const entries = readStoredEntries();
     setSavedCount(entries.length);
     setSubmitted(entries.some((entry) => entry.email.toLowerCase() === email.toLowerCase()));
   }, [email]);
+  
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % spriteOptions.length);
+    }, 2400);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleMove = (event: MouseEvent) => {
+      document.documentElement.style.setProperty('--cursor-x', `${event.clientX}px`);
+      document.documentElement.style.setProperty('--cursor-y', `${event.clientY}px`);
+    };
+
+    window.addEventListener('mousemove', handleMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -72,13 +86,14 @@ export default function HomePage() {
     setSubmitted(true);
   }
 
-  const spriteCandidates = [...currentSprites, ...plannedSprites];
+  const activeSprite = spriteOptions[activeIndex];
 
   return (
-    <main className="simple-home">
+    <main className="neon-home">
+      <div className="pixel-field" aria-hidden="true" />
+
       <header className="simple-shell simple-topbar">
         <a className="simple-wordmark" href="#waitlist-form">
-          <span className="simple-wordmark__eyebrow">alpha waitlist</span>
           <span className="simple-wordmark__title">nqita</span>
         </a>
 
@@ -93,20 +108,16 @@ export default function HomePage() {
 
       <section className="simple-shell simple-hero">
         <div className="simple-hero__copy">
-          <p className="simple-pill">terminal-first ai companion</p>
-          <h1>nqita starts in your terminal and grows into a persistent desktop companion.</h1>
-          <p className="simple-pronunciation">pronounced nick-ee-tah</p>
-          <p className="simple-lede">
-            A light, cute waitlist for a pink AI companion. No locked logo yet. The character,
-            behavior, and sprite body are still being figured out.
-          </p>
+          <p className="simple-pill">nick-ee-tah</p>
+          <h1>pink terminal companion</h1>
+          <p className="simple-lede">join the waitlist. pick the sprite direction.</p>
 
           <div className="simple-actions">
             <a className="simple-button simple-button--primary" href="#waitlist-form">
               join waitlist
             </a>
             <a className="simple-button simple-button--secondary" href="#current-shells">
-              view sprite candidates
+              view sprites
             </a>
           </div>
 
@@ -124,15 +135,16 @@ export default function HomePage() {
 
         <div className="simple-hero__art">
           <div className="hero-preview">
-            <div className="hero-preview__label">current candidate</div>
+            <div className="hero-preview__label">
+              sprite {String(activeIndex + 1).padStart(2, '0')} / {String(spriteOptions.length).padStart(2, '0')}
+            </div>
             <img
+              key={activeSprite.src}
               className="hero-preview__sprite"
-              src="/nqita-sprites/hero-agent-transparent.png"
-              alt="Potential Nqita sprite candidate"
+              src={activeSprite.src}
+              alt={activeSprite.name}
             />
-            <p className="hero-preview__note">
-              soft pink body, pixel silhouette, no final brand mark yet.
-            </p>
+            <p className="hero-preview__note">{activeSprite.name}</p>
           </div>
         </div>
       </section>
@@ -140,10 +152,8 @@ export default function HomePage() {
       <section className="simple-shell simple-grid">
         <article className="simple-card" id="waitlist-form">
           <div className="simple-card__eyebrow">waitlist</div>
-          <h2>Get early access while the runtime and sprite identity are still taking shape.</h2>
-          <p>
-            Join the list for build drops, site updates, CLI progress, and sprite tests.
-          </p>
+          <h2>early access</h2>
+          <p>build drops, updates, sprite tests.</p>
 
           {submitted ? (
             <div className="simple-success" role="status" aria-live="polite">
@@ -191,12 +201,12 @@ export default function HomePage() {
         </article>
 
         <article className="simple-card simple-card--soft">
-          <div className="simple-card__eyebrow">what nqita is</div>
-          <h2>Simple now. More embodied later.</h2>
+          <div className="simple-card__eyebrow">live picker</div>
+          <h2>8 animated candidates</h2>
           <ul className="simple-list">
-            <li>Starts in the terminal.</li>
-            <li>Moves toward a daemon-backed desktop companion.</li>
-            <li>Light by default, local-first, and character-led.</li>
+            <li>all looping</li>
+            <li>auto-rotating</li>
+            <li>tap to switch</li>
           </ul>
         </article>
       </section>
@@ -204,25 +214,22 @@ export default function HomePage() {
       <section className="simple-shell simple-sprites" id="current-shells">
         <div className="section-heading">
           <div className="panel__eyebrow">sprite candidates</div>
-          <h2>Potential bodies for Nqita.</h2>
-          <p>
-            These are the main directions under consideration right now. The site should help make
-            that choice feel obvious.
-          </p>
+          <h2>pick one</h2>
         </div>
 
         <div className="simple-sprite-grid">
-          {spriteCandidates.map((sprite) => (
-            <article key={`${sprite.status}-${sprite.title}`} className="simple-sprite-card">
+          {spriteOptions.map((sprite, index) => (
+            <button
+              key={sprite.src}
+              className={`simple-sprite-card${index === activeIndex ? ' simple-sprite-card--active' : ''}`}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              aria-label={`View ${sprite.name}`}
+            >
               <div className="simple-sprite-card__media">
-                <img src={sprite.src} alt={sprite.title} />
+                <img src={sprite.src} alt="" />
               </div>
-              <div className="simple-sprite-card__body">
-                <span>{sprite.status}</span>
-                <strong>{sprite.title}</strong>
-                <p>{sprite.note}</p>
-              </div>
-            </article>
+            </button>
           ))}
         </div>
       </section>

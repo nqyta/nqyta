@@ -1,17 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Silkscreen } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
-  display: 'swap',
-});
-
-const silkscreen = Silkscreen({
-  variable: '--font-silkscreen',
-  subsets: ['latin'],
-  weight: ['400', '700'],
   display: 'swap',
 });
 
@@ -40,7 +33,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" style={{ background: '#fff4fb' }}>
-      <body className={`${inter.variable} ${silkscreen.variable}`}>{children}</body>
+      <body className={inter.variable}>{children}</body>
     </html>
   );
 }
