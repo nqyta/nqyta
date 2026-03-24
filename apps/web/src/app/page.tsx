@@ -54,8 +54,12 @@ export default function HomePage() {
       root.style.setProperty('--tilt-y', `${(xRatio * 10).toFixed(2)}deg`);
       root.style.setProperty('--scene-shift-x', `${(xRatio * 18).toFixed(2)}px`);
       root.style.setProperty('--scene-shift-y', `${(yRatio * 14).toFixed(2)}px`);
+      root.style.setProperty('--panel-shift-x', `${(xRatio * 16).toFixed(2)}px`);
+      root.style.setProperty('--panel-shift-y', `${(yRatio * 12).toFixed(2)}px`);
       root.style.setProperty('--title-depth-x', `${(xRatio * 12).toFixed(2)}px`);
       root.style.setProperty('--title-depth-y', `${(yRatio * 10).toFixed(2)}px`);
+      root.style.setProperty('--title-shift-x', `${(xRatio * 22).toFixed(2)}px`);
+      root.style.setProperty('--title-shift-y', `${(yRatio * 18).toFixed(2)}px`);
     };
 
     window.addEventListener('mousemove', handleMove, { passive: true });
@@ -89,6 +93,7 @@ export default function HomePage() {
     <main className="site-page home-page">
       <section className="home-shell hero-home">
         <div className="hero-home__minimal">
+          <div className="hero-home__panel-glow" aria-hidden="true" />
           <div className={`hero-home__title-wrap ${pixelFont.className}`}>
             <span className="hero-home__title-shadow" aria-hidden="true">
               Nqita
@@ -116,10 +121,6 @@ export default function HomePage() {
             >
               <DiscordIcon />
             </a>
-            <a className="hero-home__text-button hero-home__text-button--contact" href="https://wokspec.org/support" target="_blank" rel="noreferrer">
-              <span className="hero-home__text-button-label">Submit</span>
-              <span className="hero-home__text-button-expand">contact</span>
-            </a>
           </div>
         </div>
       </section>
@@ -138,11 +139,6 @@ export default function HomePage() {
 
             <div className="sprite-card sprite-card--featured">
               <div className="sprite-viewer__panel">
-                <div className="sprite-viewer__scene" aria-hidden="true">
-                  <span className="sprite-viewer__wall" />
-                  <span className="sprite-viewer__floor" />
-                  <span className="sprite-viewer__pedestal" />
-                </div>
                 <img className="sprite-viewer__sprite" src={activeSprite.src} alt={activeSprite.alt} />
               </div>
             </div>
@@ -151,6 +147,14 @@ export default function HomePage() {
               <span className="sprite-card__glass" aria-hidden="true" />
               <img className="sprite-card__image sprite-card__image--side" src={nextSprite.src} alt="" aria-hidden="true" />
             </button>
+          </div>
+          <div className="sprite-module__cta">
+            <p>submit your own!</p>
+            <p>or work with us</p>
+            <a className="hero-home__text-button hero-home__text-button--contact" href="https://wokspec.org/support" target="_blank" rel="noreferrer">
+              <span className="hero-home__text-button-label">Submit</span>
+              <span className="hero-home__text-button-expand">contact</span>
+            </a>
           </div>
         </div>
       </section>
