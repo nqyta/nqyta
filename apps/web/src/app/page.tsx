@@ -52,10 +52,10 @@ export default function HomePage() {
 
       root.style.setProperty('--cursor-x', `${event.clientX}px`);
       root.style.setProperty('--cursor-y', `${event.clientY}px`);
-      root.style.setProperty('--tilt-x', `${(-yRatio * 10).toFixed(2)}deg`);
-      root.style.setProperty('--tilt-y', `${(xRatio * 10).toFixed(2)}deg`);
-      root.style.setProperty('--scene-shift-x', `${(xRatio * 14).toFixed(2)}px`);
-      root.style.setProperty('--scene-shift-y', `${(yRatio * 12).toFixed(2)}px`);
+      root.style.setProperty('--tilt-x', `${(-yRatio * 8).toFixed(2)}deg`);
+      root.style.setProperty('--tilt-y', `${(xRatio * 8).toFixed(2)}deg`);
+      root.style.setProperty('--scene-shift-x', `${(xRatio * 12).toFixed(2)}px`);
+      root.style.setProperty('--scene-shift-y', `${(yRatio * 10).toFixed(2)}px`);
     };
 
     window.addEventListener('mousemove', handleMove, { passive: true });
@@ -88,55 +88,51 @@ export default function HomePage() {
   return (
     <main className={`site-page home-page ${pixelFont.className}`}>
       <section className="home-shell hero-home">
-        <div className="atelier-scene" aria-hidden="true">
-          <div className="atelier-room">
-            <div className="atelier-wall" />
-            <div className="atelier-floor" />
-            <div className="atelier-rug" />
-            <div className="atelier-pixels atelier-pixels--left" />
-            <div className="atelier-pixels atelier-pixels--right" />
-            <div className="atelier-strip atelier-strip--left">
+        <div className="workbench-scene" aria-hidden="true">
+          <div className="workbench-stage">
+            <div className="workbench-wall" />
+            <div className="workbench-floor" />
+            <div className="workbench-sheet workbench-sheet--left">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="workbench-sheet workbench-sheet--right">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="workbench-tape workbench-tape--top-left" />
+            <div className="workbench-tape workbench-tape--top-right" />
+            <div className="workbench-tape workbench-tape--mid-left" />
+            <div className="workbench-tape workbench-tape--mid-right" />
+            <div className="workbench-strip workbench-strip--left" />
+            <div className="workbench-strip workbench-strip--right" />
+            <div className="workbench-cluster workbench-cluster--left">
               <span />
               <span />
               <span />
               <span />
             </div>
-            <div className="atelier-strip atelier-strip--right">
+            <div className="workbench-cluster workbench-cluster--right">
               <span />
               <span />
               <span />
               <span />
             </div>
-            <div className="atelier-board atelier-board--left">
-              <span />
-              <span />
-              <span />
+            <div className="workbench-table">
+              <span className="workbench-table__top" />
+              <span className="workbench-table__pad" />
+              <span className="workbench-table__glass" />
+              <span className="workbench-table__tool workbench-table__tool--left" />
+              <span className="workbench-table__tool workbench-table__tool--right" />
             </div>
-            <div className="atelier-board atelier-board--right">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="atelier-cabinet atelier-cabinet--left">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="atelier-cabinet atelier-cabinet--right">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="atelier-desk">
-              <span className="atelier-desk__surface" />
-              <span className="atelier-desk__screen" />
-              <span className="atelier-desk__lamp" />
-              <span className="atelier-desk__mat" />
-            </div>
-            <div className="atelier-spark atelier-spark--a" />
-            <div className="atelier-spark atelier-spark--b" />
-            <div className="atelier-spark atelier-spark--c" />
-            <div className="atelier-spark atelier-spark--d" />
+            <div className="workbench-note workbench-note--left" />
+            <div className="workbench-note workbench-note--right" />
+            <div className="workbench-spark workbench-spark--a" />
+            <div className="workbench-spark workbench-spark--b" />
+            <div className="workbench-spark workbench-spark--c" />
+            <div className="workbench-spark workbench-spark--d" />
           </div>
         </div>
 
@@ -150,7 +146,7 @@ export default function HomePage() {
               <DiscordIcon />
             </a>
           </div>
-          <a className="hero-home__jump" href="#sprites" aria-label="Scroll to potential sprites">
+          <a className="hero-home__jump" href="#sprites" aria-label="Scroll to sprite showcase">
             <span />
             <span />
             <span />
@@ -162,16 +158,22 @@ export default function HomePage() {
         <div className="sprite-viewer">
           <div className="sprite-viewer__panel">
             <div className="sprite-viewer__scene" aria-hidden="true">
-              <span className="sprite-viewer__backdrop" />
+              <span className="sprite-viewer__matte" />
               <span className="sprite-viewer__light" />
-              <span className="sprite-viewer__stitch sprite-viewer__stitch--top" />
-              <span className="sprite-viewer__stitch sprite-viewer__stitch--bottom" />
-              <span className="sprite-viewer__slot sprite-viewer__slot--left" />
-              <span className="sprite-viewer__slot sprite-viewer__slot--right" />
+              <span className="sprite-viewer__frame sprite-viewer__frame--top" />
+              <span className="sprite-viewer__frame sprite-viewer__frame--bottom" />
+              <span className="sprite-viewer__frame sprite-viewer__frame--left" />
+              <span className="sprite-viewer__frame sprite-viewer__frame--right" />
+              <span className="sprite-viewer__grid" />
+              <span className="sprite-viewer__cell sprite-viewer__cell--left" />
+              <span className="sprite-viewer__cell sprite-viewer__cell--right" />
               <span className="sprite-viewer__sheet sprite-viewer__sheet--one" />
               <span className="sprite-viewer__sheet sprite-viewer__sheet--two" />
               <span className="sprite-viewer__sheet sprite-viewer__sheet--three" />
-              <span className="sprite-viewer__grid" />
+              <span className="sprite-viewer__pixel sprite-viewer__pixel--a" />
+              <span className="sprite-viewer__pixel sprite-viewer__pixel--b" />
+              <span className="sprite-viewer__pixel sprite-viewer__pixel--c" />
+              <span className="sprite-viewer__pixel sprite-viewer__pixel--d" />
             </div>
 
             <button
@@ -208,11 +210,16 @@ export default function HomePage() {
       <section className="home-shell home-section home-section--info">
         <div className="home-info">
           <p>Open source desktop companion.</p>
-          <p>GitHub first. Site light. Build in public.</p>
+          <p>GitHub first. Local first.</p>
           <p>We need pixel art, motion, frontend.</p>
-          <a href="https://github.com/ws-nqita/nqita-cli" target="_blank" rel="noreferrer">
-            nqita-cli
-          </a>
+          <div className="home-info__links">
+            <a href="https://github.com/ws-nqita" target="_blank" rel="noreferrer">
+              ws-nqita
+            </a>
+            <a href="https://github.com/ws-nqita/nqita-cli" target="_blank" rel="noreferrer">
+              nqita-cli
+            </a>
+          </div>
         </div>
       </section>
     </main>
